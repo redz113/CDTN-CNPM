@@ -3,6 +3,8 @@ class CoursesController extends BaseController{
     protected $coursesModel;
     protected $topicsModel;
 
+    protected $data = [];
+
     public function __construct() {
         $this->loadModel("CoursesModel");
         $this->coursesModel = new CoursesModel();
@@ -11,12 +13,9 @@ class CoursesController extends BaseController{
         $this->topicsModel = new TopicsModel();
     }
     public function index(){
-        $courses = $this->coursesModel->all();
-        $topics = $this->topicsModel->all();
+        $this->data['courses'] = $this->coursesModel->all('', '', '', '', '', ['relate' => 'asc']);
+        $this->data['topics'] = $this->topicsModel->all();
 
-        return $this->view('courses.index', [
-            'topics' => $this->topicsModel->all(),
-            'courses' => $this->coursesModel->all(),
-        ]);
+        return $this->view('courses.index', $this->data);
     }
 } 

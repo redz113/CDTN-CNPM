@@ -1,4 +1,4 @@
-<main class="m-0 py-4 px-lg-5" style="background-color: #D9EEE1;">
+
     <?php 
             $controllerName = (ucfirst(strtolower($_REQUEST['ctl'] ?? 'Wellcome'))) . 'Controller';
             

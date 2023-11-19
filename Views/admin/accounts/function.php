@@ -6,6 +6,20 @@
 	
 	$database = new Database();
 	$conn = $database->connect();
+
+	//Get all 
+	function getAll($table, $select = ['*']){
+		GLOBAL $conn;
+		$select = implode(',', $select);
+		$sql = "SELECT $select FROM $table";
+		$query = mysqli_query($conn, $sql);
+		$data = [];
+		while($row = mysqli_fetch_array($query)){
+			$data[] = $row;
+		}
+
+		return $data;
+	}
 	
 	function getlistuser($pageIndex){
 		GLOBAL $conn;

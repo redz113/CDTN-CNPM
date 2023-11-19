@@ -1,15 +1,23 @@
 <div class="card">
     <div class="card-header boder-0">
-        <div class="float-left">
-            <h2>Quản lý khóa học</h2>
+        <div class="row">
+            <div class="col-6">
+                <h2>Quản lý khóa học</h2>
+            </div>
+            <div class="col-6">
+                <a href="./?ctl=courses&act=create<?php echo isset($_GET['page']) ? "&page=".$_GET['page']:""; ?>" class="btn btn-success float-right">Tạo khóa học</a>
+            </div>
         </div>
-        <div class="float-right">
-
-            <!-- 
-                Chưa xử lý phân quyền
-             -->
-            <a href="./?ctl=courses&act=create<?php echo isset($_GET['page']) ? "&page=".$_GET['page']:""; ?>" class="btn btn-success">Tạo khóa học</a>
-        </div>
+        <!-- <div class="row">
+            <div class="col-sm-3">
+            <label for="phan_loai">Phân loại: </label>
+            <select name="phan_loai" id="phan_loai">
+                <option value="1">ALL</option>
+                <option value="1">HTML</option>
+                <option value="1">CSS</option>
+            </select>
+            </div>
+        </div> -->
     </div>
 
     <div class="card-body">
@@ -33,9 +41,9 @@
                 
                     <tr>
                         <td class="align-middle"> <?php echo $i++; ?> </td>
-                        <td class="align-middle"> <?php echo $value['name']; ?> </td>  
+                        <td class="align-middle text-uppercase"> <?php echo $value['name']; ?> </td>  
                         <td class="align-middle"> <?php echo trim($value['described']); ?> </td> 
-                        <td class="align-middle"> <?php echo $value['name2']; ?> </td>         
+                        <td class="align-middle text-uppercase"> <?php echo $value['topicId']; ?> </td>         
                         <td class="align-middle">
                             <?php 
                                 echo $value['price'] == 0 ? 
@@ -50,7 +58,7 @@
                                 "<span class='text-success'>Đã hoàn thiện</span>"; 
                             ?> 
                         </td>
-                        <td class="align-middle">
+                        <td class="align-middle text-right">
 
                         <!-- 
                             chưa xử lý phân quyền

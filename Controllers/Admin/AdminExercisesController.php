@@ -5,7 +5,7 @@
         protected $exercisesModel;
         private $data = [];
 
-        protected $limit = 4;    //Số bản ghi hiển thị trên 1 trang
+        protected $limit = 8;    //Số bản ghi hiển thị trên 1 trang
 
         public function __construct() {
             // $this->_requireModel();                 // BaseController
@@ -14,7 +14,7 @@
             $this->coursesModel = new CoursesModel;    //Tạo object Courses
             $this->exercisesModel = new ExercisesModel;
 
-            $this->data['courses'] = $this->coursesModel->all();
+            $this->data['courses'] = $this->coursesModel->all('', '', '', '', '', ['relate' => 'asc']);
             $this->data['exercises'] = $this->exercisesModel->all();
         }
 
@@ -22,10 +22,10 @@
             // $this->coursesModel->paging();
             $page = isset($_GET['page']) ? $_GET['page'] : 1; 
 
-            $this->data['exercises'] = $this->exercisesModel->getDataJoin("courses", 
-                                                        "exercises.courseId = courses.id", 
+            $this->data['exercises'] = $this->exercisesModel->all("", "","", 
                                                         ($page-1)*$this->limit, 
-                                                        $this->limit);
+                                                        $this->limit,
+                                                        ['relate' => 'asc']);
             $this->data["paging"] = $this->exercisesModel->paging($this->limit);
             return $this->view('admin.exercises.index', $this->data);
         }
@@ -40,9 +40,9 @@
                 $this->data['error'][] = "Tên không được để trống";
             }
 
-            if(trim($_POST['content']) == ""){
-                $this->data['error'][] = "Nội dung bài tập không được để trống";
-            }
+            // if(trim($_POST['described']) == ""){
+            //     $this->data['error'][] = "Mô tả về bài tập không được để trống";
+            // }
             
             if(empty($this->data['error'])){
                 $this->exercisesModel->create();
@@ -61,7 +61,7 @@
         }
 
         public function edit(){
-            $this->data['exerciseEdit'] = $this->exercisesModel->find($_REQUEST['id']);   // Bản ghi cần cập nhật
+            $this->data['exerciseEdit'] = $this->exercisesModel->find_by_id($_REQUEST['id']);   // Bản ghi cần cập nhật
             
             return $this->view('admin.exercises.edit', $this->data);
         }
@@ -71,9 +71,9 @@
                 $this->data['error'][] = "Tên không được để trống";
             }
 
-            if(trim($_POST['content']) == ""){
-                $this->data['error'][] = "Nội dung bài tập không được để trống";
-            }
+            // if(trim($_POST['content']) == ""){
+            //     $this->data['error'][] = "Nội dung bài tập không được để trống";
+            // }
             
             if(empty($this->data['error'])){
                 $this->exercisesModel->update();
@@ -100,7 +100,7 @@
         }
 
         public function show(){
-            $this->data['exercise'] = $this->exercisesModel->find($_REQUEST['id']);
+            $this->data['exercise'] = $this->exercisesModel->find_by_id($_REQUEST['id']);
             return $this->view('admin.exercises.show', $this->data);
         }
     }

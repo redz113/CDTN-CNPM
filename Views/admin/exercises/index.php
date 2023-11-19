@@ -27,6 +27,7 @@
                     <!-- <th class="text-center" style="min-width: 200px;">Mô tả</th> -->
                     <th class="text-center">Phân loại khóa học</th>
                     <th class="text-center">Độ khó</th>
+                    <th class="text-center">Ngày tạo</th>
                     <!-- <th class="text-center">Nội dung bài tập</th> -->
                     <th class="text-center" max-width="270px">Thao tác</th>
                 </tr> 
@@ -40,9 +41,11 @@
                     <tr>
                         <td class="align-middle"> <?php echo $i++; ?> </td>
                         <td class="align-middle"> <?php echo $value['name']; ?> </td>  
-                        <td class="align-middle"> <?php echo $value['name2']; ?> </td> 
+                        <!-- <td class="align-middle"> <?php echo $value['described']; ?> </td>   -->
+                        <td class="align-middle text-uppercase"> <?php echo $value['courseId']; ?> </td> 
                         <td class="align-middle"> <?php echo $value['level']; ?> </td>
-                        <td class="align-middle">
+                        <td class="align-middle"> <?php echo $value['created_at']; ?> </td>
+                        <td class="align-middle text-right">
 
                         <!-- 
                             chưa xử lý phân quyền

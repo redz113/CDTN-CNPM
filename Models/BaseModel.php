@@ -21,20 +21,20 @@
             $this->connect = $this->connect(); 
         }
 
-        public function getDataJoin($tableName, $on = "", $start=0, $limit = null) {
+        public function getDataJoin($tableName, $on = "", $start=0, $limit = null, $orderBy = ['relate' => 'asc']) {
             $colums = $this->colums; 
             foreach ($colums as $key => $value) {
                 $colums[$key] = $this->table .'.'. $value;
             }
-            // $colums[0] = $this->table . '.id';
-            // $colums[1] = $this->table . '.name';
+            
             $colums[] = $tableName . '.name as name2';
             $select = implode(', ', $colums);
 
             $sql = "SELECT $select FROM $this->table
                     INNER JOIN $tableName
                     ON $on
-            ";
+                    ORDER BY $this->table" ."." . array_keys($orderBy)[0] . " " . array_values($orderBy)[0]
+            ;
 
             if(!empty($limit)){
                 $sql .= " LIMIT $start, $limit";
@@ -52,7 +52,7 @@
         /**
          * Lấy  tất cả dữ liệu trong bảng có phân trang
          */
-        public function all($table = '', $colums = [], $where = [], $start=0, $limit = null){
+        public function all($table = '', $colums = [], $where = [], $start=0, $limit = null, $orderBy = []){
             if(!empty($colums)){
                 $select = implode(',', $colums);
             }else $select = implode(',', $this->colums);
@@ -63,13 +63,17 @@
 
             if(!empty($where) ){
                 $sql .= " WHERE ";
-                foreach ($where as $key => $value){
-                    $sql .= "$key = $value OR ";
+                foreach ($where as  $value){
+                    $sql .= "$value OR ";
                 }
             }
             
             // $this->pageSize = empty($limit) ? $this->pageSize : $limit;
             $sql = trim($sql ,'OR ');
+
+            if(!empty($orderBy)){
+                $sql .= " ORDER BY " .array_keys($orderBy)[0] . " " . array_values($orderBy)[0];
+            }
 
             if(!empty($limit)){
                 $sql .= " LIMIT $start, $limit";
@@ -86,74 +90,109 @@
         /**
          * Lấy ra 1 bản ghi
          */
-        public function find($id){
+        public function find_by_id($id){
             $select = implode(',', $this->colums);
 
             $sql = "SELECT ${select} FROM $this->table WHERE $this->primaryKey = $id"; 
             return mysqli_fetch_assoc($this->_query($sql));
         }
 
+        public function find($table, $select = '*', $where = []){
+            $sql = "SELECT $select FROM $table WHERE ";
+            foreach($where as $key => $val){
+                $sql .= "$key = '$val' OR ";
+            }
+
+            $sql = rtrim($sql ,"OR ");
+
+            $data = [];
+            $query = $this->_query($sql);
+            while($row = mysqli_fetch_assoc($query)){
+                $data[] = $row;
+            }
+            return $data;
+        }
+
+        protected function _query($sql){
+            return mysqli_query($this->connect, $sql);
+        }
+
+        public function setRelete(){
+            $lastCourse = $this->lastRow($this->table, 'relate');
+            if($_POST['relate'] == "null" || $_POST['relate'] == $lastCourse['relate']){
+                $relate = $lastCourse['id'] + 1;
+            }else{
+                $where[] = "relate >= " . $_POST['relate'];
+                $data = $this->all($this->table, ['relate'], $where, 0, 2, ['relate' => 'asc']);
+                $relate =  ($data[0]['relate'] + $data[1]['relate']) / 2.0;
+            };
+            return $relate;
+        }
+
         /**
          * Thêm dữ liệu vào bảng
          */
-        public function create(){
-            $cols = implode(',', array_keys($_POST));
-            $values = '\'' . implode('\',\'', array_values($_POST)) . '\'';
+        // public function create($table = ''){
+           
+        //     $cols = implode(',', array_keys($_POST));
+        //     $values = '\'' . implode('\',\'', array_values($_POST)) . '\'';
 
-            ////
-            if(isset($_FILES[$this->tagFileInput]) && $_FILES[$this->tagFileInput]['error'] == 0){
-                $path = $this->_uploadFile();
-                if($path != false){
-                    $cols .= ',' . $this->tagFileInput;
-                    $values .= ',\'' . $path . '\'';
-                }
-            }
+        //     if(empty($this->table)){ $this->table = $table; };
+        //     ////
+        //     if(isset($_FILES[$this->tagFileInput]) && $_FILES[$this->tagFileInput]['error'] == 0){
+        //         $path = $this->_uploadFile();
+        //         if($path != false){
+        //             $cols .= ',' . $this->tagFileInput;
+        //             $values .= ',\'' . $path . '\'';
+        //         }
+        //     }
 
-            $sql = "INSERT INTO $this->table($cols) VALUES($values)";
+        //     $sql = "INSERT INTO $this->table($cols) VALUES($values)";
             
-            if(empty($this->checkError)){
-                $this->_query($sql);
-            }
-        }
+        //     if(empty($this->checkError)){
+        //         $this->_query($sql);
+        //     }
+        // }
 
         /**
          * Sửa dữ liệu trong bảng
          */
-        public function update(){
-            if(isset($_POST['id'])){  
-                $editId = $_POST['id'];
-            }
+        // public function update($table = ''){
+        //     if(empty($this->table)){ $this->table = $table; };
+        //     if(isset($_POST['id'])){  
+        //         $editId = $_POST['id'];
+        //     }
 
-            $set = '';
-            foreach($_POST as $key => $value){
-                $set .= $key. ' = \'' . $value . '\',';  
-            }
+        //     $set = '';
+        //     foreach($_POST as $key => $value){
+        //         $set .= $key. ' = \'' . $value . '\',';  
+        //     }
 
-            if(isset($_FILES[$this->tagFileInput]) && $_FILES[$this->tagFileInput]['error'] == 0){
+        //     if(isset($_FILES[$this->tagFileInput]) && $_FILES[$this->tagFileInput]['error'] == 0){
             
-                //upload file
-                $path = $this->_uploadFile();
-                if($path != false){
-                    $set .= 'fileUpload = \'' . $path . "' ";
+        //         //upload file
+        //         $path = $this->_uploadFile();
+        //         if($path != false){
+        //             $set .= 'fileUpload = \'' . $path . "' ";
 
-                    //Xóa file cũ 
-                    $pathOdd = $this->find($editId)['fileUpload']; 
-                    if(file_exists("$pathOdd")){
-                        unlink($pathOdd);
-                    }
-                }
-            }
+        //             //Xóa file cũ 
+        //             $pathOdd = $this->find($editId)['fileUpload']; 
+        //             if(file_exists("$pathOdd")){
+        //                 unlink($pathOdd);
+        //             }
+        //         }
+        //     }
 
-            $set = trim($set, ',');
-            $sql = "
-                UPDATE $this->table
-                SET $set
-                WHERE id = $editId; 
-                ";
-            if(empty($this->checkError)){
-                $this->_query($sql);
-            }
-        }
+        //     $set = trim($set, ',');
+        //     $sql = "
+        //         UPDATE $this->table
+        //         SET $set
+        //         WHERE id = $editId; 
+        //         ";
+        //     if(empty($this->checkError)){
+        //         $this->_query($sql);
+        //     }
+        // }
 
         /**
          * Xóa dữ liệu trong bảng
@@ -163,16 +202,25 @@
             $id = $_GET['id'];
 
             //Xóa file cũ 
-            $data = $this->find($id); 
+            $data = $this->find_by_id($id); 
             if(isset($data['fileUpload']) && file_exists($data['fileUpload'])){
                 unlink($data['fileUpload']);
             }
 
             // Xóa các table liên quan
             if(!empty($connection)){
-                foreach($connection as $value){
+                foreach($connection as $table){
                     $where = rtrim($this->table,'s') . 'Id';
-                    $sql = "DELETE FROM $value WHERE $where = ${id}";
+
+                    //Xóa file
+                    $data2 = $this->find($table, '*' , [$where => $data['name']]);
+                    foreach($data2 as $value){
+                        if(isset($value['fileUpload']) && file_exists($value['fileUpload'])){
+                            unlink($value['fileUpload']);
+                        }
+                    }
+
+                    $sql = "DELETE FROM $table WHERE $where = '" . $data['name'] . "'";
                     $this->_query($sql);
                 }
             }
@@ -182,36 +230,29 @@
         }
 
 
-
-        protected function _query($sql){
-            return mysqli_query($this->connect, $sql);
-        }
-
-        public function _uploadFile(){
-            $fileUpload = $_FILES[$this->tagFileInput];
-
-            $uploadFileType = strtolower(pathinfo($fileUpload['name'], PATHINFO_EXTENSION));
+        // public function _uploadFile($fileUpload, $targetDir, $fileTypeCheck){
+        //     $fileType = strtolower(pathinfo($fileUpload['name'], PATHINFO_EXTENSION));
             
-            $fileName = $this->table . time();
-            $target_file = $this->target_dir . $fileName . '.' . $uploadFileType;           //Đường dẫn lưu file
+        //     $fileName =$targetDir .  md5(uniqid()) .".$fileType";
+        //     // $target_file = $this->target_dir . $fileName . '.' . $uploadFileType;           //Đường dẫn lưu file
 
-            // Kiểm tra đuôi file hợp lệ
-            if(count($this->fileType) > 0){
-                if(!in_array($uploadFileType, $this->fileType)){
-                    $type = strtoupper(implode(', ', $this->fileType));
-                    $this->checkError = "Chỉ cho phép các tệp $type";
-                    return false;
-                }
-            }
+        //     // Kiểm tra đuôi file hợp lệ
+        //     if(count($fileTypeCheck) > 0){
+        //         if(!in_array($fileType, $fileTypeCheck)){
+        //             $type = strtoupper(implode(', ', $this->fileType));
+        //             $this->checkError = "Chỉ cho phép các tệp $type";
+        //             return false;
+        //         }
+        //     }
 
             
-            if(!move_uploaded_file($fileUpload['tmp_name'], $target_file)){
-                $this->checkError = "Đã xảy ra lỗi khi tải xuống tệp tin";
-                return false;
-            }
+        //     if(!move_uploaded_file($fileUpload['tmp_name'], $fileName)){
+        //         $this->checkError = "Đã xảy ra lỗi khi tải xuống tệp tin";
+        //         return false;
+        //     }
             
-            return $target_file;
-        }
+        //     return $fileName;
+        // }
 
 
         // Paging
@@ -290,10 +331,29 @@
         }
 
         // Lấy bản ghi cuối cùng
-        public function lastRow($table = ''){
+        public function lastRow($table = '', $orderBy = 'id'){
             $table = empty($table) ? $this->table : $table;
-            $sql = "SELECT * FROM $table ORDER BY id DESC LIMIT 1";
+            $sql = "SELECT * FROM $table ORDER BY $orderBy DESC LIMIT 1";
             $query = $this->_query($sql);
             return mysqli_fetch_assoc($query);
+        }
+
+        public function search($table, $col_search ,$key){
+            // $key = strtolower();
+            $search = "";
+            foreach($col_search as $value){
+                $search .= $value . " LIKE '%$key%' OR ";
+            }
+
+            $search = rtrim($search,"OR ");
+            $sql = "SELECT * FROM $table WHERE $search";
+
+            $query = $this->_query($sql);
+            $data = [];
+            while($row = mysqli_fetch_assoc($query)){
+                $data[] = $row;
+            }
+
+            return $data;
         }
     }

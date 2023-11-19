@@ -8,7 +8,7 @@
             </div>
         </div>
         <?php
-            if(isset($topics)){
+            if(isset($topics)){ 
                 foreach($topics as $topic){
         ?>
             <div class="col-sm-4 px-5 py-3 float-left">
@@ -16,7 +16,7 @@
                 <?php
                     if(isset($courses)){
                         foreach($courses as $course){
-                            if($course['topicId'] == $topic['id']){
+                            if($course['topicId'] == $topic['name']){
                 ?>
 
                 <div>

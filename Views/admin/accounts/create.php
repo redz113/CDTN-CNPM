@@ -56,15 +56,19 @@
             <label for="email">Email address</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
           </div>
-		  <div class="form-group">
-			<input type="radio" id="role-admin" name="role" value="1">
-			<label for="role-admin">Quan tri vien</label><br>
-			<input type="radio" id="role-content" name="role" value="2">
-			<label for="role-content">Quan tri noi dung</label><br>
-			<input type="radio" id="role-customer" name="role" value="3">
-			<label for="role-customer">Khach hang</label><br>
-			<!-- Add more radio buttons for other roles if needed -->
-		</div>
+
+		<?php 
+			$roles = getAll('roles');
+			foreach ($roles as $role) {
+		?>
+			<div class="col-xs-12 col-sm-6">
+				<input type="radio" id="role-<?php echo $role['id'];?>" name="role" value="<?php echo $role['id']; ?>">
+				<label for="role-<?php echo $role['id'];?>"><?php echo $role['name']; ?></label>
+			</div>
+		<?php
+			}
+		?>
+		  
           <div class="form-group text-center">
             <button type="submit" class="btn btn-primary" name="btn-register" id = "btn-register">Register</button>
           </div>

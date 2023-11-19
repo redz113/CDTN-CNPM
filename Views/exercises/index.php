@@ -16,7 +16,7 @@
                 <?php
                     if(isset($courses)){
                         foreach($courses as $course){
-                            if($course['topicId'] == $topic['id']){
+                            if($course['topicId'] == $topic['name']){
                 ?>
 
                 <div>

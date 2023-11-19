@@ -12,7 +12,7 @@
         
         <?php
             if(isset($error)){
-                echo "<div class='badge badge-danger py-2'> $error </div>";
+                echo "<div class='badge badge-danger py-2'>" . $error[0] ."</div>";
             }
         ?>
 

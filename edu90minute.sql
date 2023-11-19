@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2023 at 02:47 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 7.3.29
+-- Generation Time: Nov 18, 2023 at 08:33 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,7 @@ CREATE TABLE `code_confirm` (
   `code` varchar(6) NOT NULL,
   `md5` varchar(255) NOT NULL,
   `create_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -42,32 +42,36 @@ CREATE TABLE `code_confirm` (
 
 CREATE TABLE `courses` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `described` varchar(255) NOT NULL,
-  `fileUpload` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `described` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fileUpload` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` int(11) NOT NULL DEFAULT 0,
-  `inputs` text NOT NULL,
-  `outputs` text NOT NULL,
+  `inputs` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `outputs` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `interact` int(11) NOT NULL DEFAULT 0,
+  `relate` float NOT NULL,
+  `tags` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `state` smallint(6) NOT NULL DEFAULT 0,
-  `topicId` int(10) UNSIGNED NOT NULL
+  `topicId` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`id`, `name`, `described`, `fileUpload`, `price`, `inputs`, `outputs`, `created_at`, `state`, `topicId`) VALUES
-(1, 'HTML\r\n', 'Ngôn ngữ xây dựng trang web', '0', 0, '', '', '2023-10-10 03:06:38', 0, 1),
-(2, 'CSS', 'Ngôn ngữ tạo kiểu cho trang web', '0', 0, '', '', '2023-10-10 03:06:38', 0, 1),
-(3, 'JavaScript cơ bản', 'Ngôn ngữ lập trình trang web', './uploads/images/courses1698105336.jpg', 650000, '- Thành thạo HTML|CSS|JAVASCRIPT\r\n- OOP', '- Xây dựng được 1 website chuẩn PHP theo mô hình MVC', '2023-10-10 03:06:38', 1, 2),
-(4, 'SQL', 'Ngôn ngữ truy cập cơ sở dữ liệu', '0', 0, '', '', '2023-10-10 03:06:38', 0, 4),
-(5, 'Java', 'Một ngôn ngữ lập trình', '0', 0, '', '', '2023-10-10 03:06:38', 0, 3),
-(6, 'PHP', 'Ngôn ngữ lập trình máy chủ Web', '0', 0, '', '', NULL, 0, 3),
-(13, 'NodeJS', 'Học hay lắm', '0', 0, '', '', '2023-10-11 01:34:46', 0, 3),
-(14, 'C# cơ bản', 'C# cơ bản cho người mới học lập trình', '0', 0, '', '', '2023-10-11 01:36:54', 0, 3),
-(94, 'python', 'Học Lập trình python', './uploads/images/file_1697615960.png', 0, 'ABC', 'abc', '2023-10-18 07:59:20', 0, 1),
-(122, 'HTML/CSS', 'aa', './uploads/images/courses1698290685.jpg', 0, 'a', 'a', '2023-10-26 03:24:31', 0, 1);
+INSERT INTO `courses` (`id`, `name`, `described`, `fileUpload`, `price`, `inputs`, `outputs`, `interact`, `relate`, `tags`, `created_at`, `state`, `topicId`) VALUES
+(1, 'HTML', 'Ngôn ngữ xây dựng trang web', './uploads/images/90468b6353a04463410c3466396dd2b2.jpg', 0, 'Không', '', 0, 1, 'html css javascript frontend ', '2023-10-10 03:06:38', 0, 'HTML/CSS'),
+(2, 'CSS', 'Ngôn ngữ tạo kiểu cho trang web', './uploads/images/7fd6c909d30bf371c1de4a3a56f89dea.webp', 0, 'Không', '', 0, 2, 'html css javascript frontend ', '2023-10-10 03:06:38', 0, 'HTML/CSS'),
+(3, 'JavaScript cơ bản', 'Ngôn ngữ lập trình trang web', './uploads/images/7f3729579680a3ba3940b1b2744f44e1.webp', 650000, '- Thành thạo HTML|CSS|JAVASCRIPT\r\n- OOP', '- Xây dựng được 1 website chuẩn PHP theo mô hình MVC', 0, 3, 'javascript frontend ', '2023-10-10 03:06:38', 1, 'JavaScript'),
+(4, 'SQL', 'Ngôn ngữ truy cập cơ sở dữ liệu', './uploads/images/59342e6382ef64520fd3fb8704d98b2e.png', 0, 'Khong', '', 0, 4, 'backend sql ', '2023-10-10 03:06:38', 0, 'Data Analytics'),
+(5, 'Java', 'Một ngôn ngữ lập trình', './uploads/images/10f2ba3848e1dc7e3e43d96e1c83fcc2.webp', 0, 'Khong', '', 0, 5, 'backend java ', '2023-10-10 03:06:38', 0, 'HTML/CSS'),
+(6, 'PHP', 'Ngôn ngữ lập trình máy chủ Web', './uploads/images/04e64e175fbbfeb627ed41c662aae712.jpg', 0, 'Khong', '', 0, 6, 'backend php ', '2023-11-09 13:51:56', 0, 'BackEnd'),
+(13, 'NodeJS', 'Học NodeJS cơ bản cho người mới bắt đầu', './uploads/images/99e211f68ab9d884fc321f7801854c59.png', 0, 'Khong', '', 0, 3.5, 'frontend backend ', '2023-10-11 01:34:46', 0, 'Web Building'),
+(14, 'C# cơ bản', 'C# cơ bản cho người mới học lập trình', './uploads/images/0318e96e80430270c99950a118b281a3.webp', 0, 'Khong', '', 0, 53.5, 'backend ', '2023-10-11 01:36:54', 0, 'BackEnd'),
+(94, 'python', 'Học Lập trình python', './uploads/images/7ef772ed4c7bc1cc166e3c987f46226d.webp', 0, 'ABC', 'abc', 0, 94, 'html frontend ', '2023-10-18 07:59:20', 0, 'HTML/CSS'),
+(123, 'HTML nâng cao', 'HTML nâng cao', './uploads/images/54659ca51b492c7c42dff0efcbd8cd32.jpg', 450000, 'Nắm chắc kiến thức HTML cơ bản', 'null', 0, 1.5, 'html frontend ', '2023-11-12 05:45:57', 0, 'HTML/CSS'),
+(134, 'HTML5', 'HTML5.1', './uploads/images/a71a7cc39bb0d69ea7c293beac6ed591.jpg', 200000, 'HTML5', '', 0, 1.375, 'html frontend ', '2023-11-17 16:15:50', 0, 'HTML/CSS');
 
 -- --------------------------------------------------------
 
@@ -77,21 +81,56 @@ INSERT INTO `courses` (`id`, `name`, `described`, `fileUpload`, `price`, `inputs
 
 CREATE TABLE `exercises` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `described` text NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `described` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `level` smallint(6) NOT NULL,
-  `courseId` int(10) UNSIGNED NOT NULL,
-  `content` text NOT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL
+  `courseId` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fileUpload` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `relate` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `exercises`
 --
 
-INSERT INTO `exercises` (`id`, `name`, `described`, `level`, `courseId`, `content`, `created_at`, `updated_at`) VALUES
-(2, 'Session 2', 'làm quen với heading', 1, 2, '<h1><span style=\"background-color:#f1c40f\">Xử l&yacute; Session</span></h1>\r\n\r\n<form action=\"./?ctl=courses\" enctype=\"multipart/form-data\" method=\"post\" name=\"register\">\r\n<table cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td>name</td>\r\n			<td><input name=\"name\" type=\"text\" /></td>\r\n		</tr>\r\n		<tr>\r\n			<td>age</td>\r\n			<td><input name=\"age\" type=\"text\" /></td>\r\n		</tr>\r\n		<tr>\r\n			<td>username</td>\r\n			<td><input required=\"required\" type=\"text\" /></td>\r\n		</tr>\r\n		<tr>\r\n			<td>password</td>\r\n			<td><input required=\"required\" type=\"password\" /></td>\r\n		</tr>\r\n		<tr>\r\n			<td>academic year</td>\r\n			<td><input name=\"academicYear\" type=\"radio\" value=\"69\" />69&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<input checked=\"checked\" name=\"academicYear\" type=\"radio\" value=\"70\" />70&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input name=\"academicYear\" type=\"radio\" value=\"71\" />71&nbsp;</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p><input name=\"Submit\" type=\"submit\" value=\"Submit\" /></p>\r\n</form>\r\n\r\n<p>&nbsp;</p>\r\n', NULL, NULL);
+INSERT INTO `exercises` (`id`, `name`, `described`, `level`, `courseId`, `fileUpload`, `relate`, `created_at`) VALUES
+(2, 'Giới thiệu khóa học', 'CSS', 1, 'HTML', './uploads/files/exercises/7e1d1073985b37a518ad3ae68f99848e.pdf', 8, '2023-11-18 12:37:45'),
+(10, 'Heading', '', 1, 'HTML', './uploads/files/exercises/db6f14f0ca63b406e1e7a0d8c226ca4f.pdf', 11, '2023-11-18 12:37:45'),
+(14, 'Forms', '', 1, 'HTML', '', 11, '2023-11-18 12:37:45'),
+(15, 'Giới thiệu bài tập', '', 1, 'PHP', '', 15, '2023-11-18 12:37:45'),
+(16, 'Validate', '', 1, 'PHP', '', 16, '2023-11-18 12:37:45'),
+(17, 'Authentications', '', 3, 'PHP', '', 17, '2023-11-18 12:37:45'),
+(18, 'Authorizations', '', 1, 'PHP', '', 18, '2023-11-18 12:37:45'),
+(19, 'Array - String', '', 1, 'C# cơ bản', './uploads/files/exercises/f774d8a06cc7aea5957922ebbe9ab1b1.pdf', 20, '2023-11-18 12:37:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lessons`
+--
+
+CREATE TABLE `lessons` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `described` text COLLATE utf8_unicode_ci NOT NULL,
+  `fileUpload` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `courseId` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `relate` float NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `lessons`
+--
+
+INSERT INTO `lessons` (`id`, `name`, `described`, `fileUpload`, `courseId`, `relate`, `created_at`) VALUES
+(8, 'Giới thiệu khóa học', '', './uploads/files/lessons/af24808f146e72eff5a953bb25bfe94e.mp4', 'HTML', 8, '2023-11-18 16:08:28'),
+(9, 'Cấu trúc file HTML', '', './uploads/files/lessons/021dbdb55595e7bd6fcd5296488fa8d2.pdf', 'HTML', 8.25, '2023-11-18 18:29:11'),
+(10, 'Các thẻ HTML thông dụng', '', './uploads/files/lessons/33962ccbc979f0108ad5f9c553eab299.pdf', 'HTML', 9.1875, '2023-11-18 18:29:43'),
+(11, 'Comments trong HTML', '', './uploads/files/lessons/7ea07ba09e6be2b5e3db5583625553b9.pdf', 'HTML', 8.375, '2023-11-18 18:34:26'),
+(12, 'Attribute trong HTML', '', './uploads/files/lessons/249a239efc545aaf71a37ce095781717.pdf', 'HTML', 11, '2023-11-18 18:53:39'),
+(13, 'Cách quản lý thư mục dự án', '', './uploads/files/lessons/67f5ce7a67e911af98511d8b21e0c1e0.pdf', 'HTML', 13, '2023-11-18 18:54:34');
 
 -- --------------------------------------------------------
 
@@ -101,7 +140,7 @@ INSERT INTO `exercises` (`id`, `name`, `described`, `level`, `courseId`, `conten
 
 CREATE TABLE `permissions` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -123,7 +162,7 @@ INSERT INTO `permissions` (`id`, `name`) VALUES
 
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -166,12 +205,37 @@ INSERT INTO `role_has_permission` (`permissionId`, `roleId`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tags`
+--
+
+CREATE TABLE `tags` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `tags`
+--
+
+INSERT INTO `tags` (`id`, `name`) VALUES
+(1, 'html'),
+(2, 'css'),
+(3, 'javascript'),
+(4, 'frontend'),
+(5, 'backend'),
+(6, 'sql'),
+(7, 'php'),
+(8, 'java');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `topics`
 --
 
 CREATE TABLE `topics` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` smallint(6) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -196,10 +260,10 @@ INSERT INTO `topics` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password_change_at` timestamp NULL DEFAULT NULL,
   `role` smallint(6) NOT NULL,
@@ -224,15 +288,19 @@ INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `email_verif
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_topic_id` (`topicId`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `exercises`
 --
 ALTER TABLE `exercises`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_exercises` (`courseId`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `lessons`
+--
+ALTER TABLE `lessons`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `permissions`
@@ -252,6 +320,12 @@ ALTER TABLE `roles`
 ALTER TABLE `role_has_permission`
   ADD KEY `fk_permission` (`permissionId`),
   ADD KEY `pk_role` (`roleId`);
+
+--
+-- Indexes for table `tags`
+--
+ALTER TABLE `tags`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `topics`
@@ -275,13 +349,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `exercises`
 --
 ALTER TABLE `exercises`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `lessons`
+--
+ALTER TABLE `lessons`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -293,6 +373,12 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tags`
+--
+ALTER TABLE `tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
@@ -310,18 +396,6 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `courses`
---
-ALTER TABLE `courses`
-  ADD CONSTRAINT `fk_topic_id` FOREIGN KEY (`topicId`) REFERENCES `topics` (`id`);
-
---
--- Constraints for table `exercises`
---
-ALTER TABLE `exercises`
-  ADD CONSTRAINT `fk_exercises` FOREIGN KEY (`courseId`) REFERENCES `courses` (`id`);
 
 --
 -- Constraints for table `role_has_permission`

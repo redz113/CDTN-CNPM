@@ -3,6 +3,7 @@ class ExercisesController extends BaseController{
     protected $exercisesModel;
     protected $coursesModel;
     protected $topicsModel;
+    protected $data = [];
 
     public function __construct() {
         $this->loadModel("ExercisesModel");
@@ -17,7 +18,7 @@ class ExercisesController extends BaseController{
     public function index(){
         return $this->view('exercises.index', [
             'topics' => $this->topicsModel->all(),
-            'courses' => $this->coursesModel->all(),
+            'courses' => $this->coursesModel->all('', '', '', '', '', ['relate' => 'asc']),
         ]);
     }
 

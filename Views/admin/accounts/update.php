@@ -48,15 +48,18 @@
             <label for="email">Email address</label>
             <input type="email" class="form-control" id="email" name="email"  placeholder="Enter your email" value="<?php echo $data['email']; ?>">
           </div>
-		  <div class="form-group">
-			<input type="radio" id="role-admin" name="role" value="1"  <?php if(isset($data['role']) && $data['role'] == '1') echo 'checked'; ?>>
-			<label for="role-admin">Quan tri vien</label><br>
-			<input type="radio" id="role-content" name="role" value="2"  <?php if(isset($data['role']) && $data['role'] == '2') echo 'checked'; ?>>
-			<label for="role-content">Quan tri noi dung</label><br>
-			<input type="radio" id="role-customer" name="role" value="3"  <?php if(isset($data['role']) && $data['role'] == '3') echo 'checked'; ?>>
-			<label for="role-customer">Khach hang</label><br>
-			<!-- Add more radio buttons for other roles if needed -->
-		</div>
+
+		<?php 
+			$roles = getAll('roles');
+			foreach ($roles as $role) {
+		?>
+			<div class="col-xs-12 col-sm-6">
+				<input type="radio" id="role-<?php echo $role['id'];?>" name="role" value="<?php echo $role['id'];?>" <?php if(isset($data['role']) && $data['role'] == $role['id']) echo 'checked'; ?>>
+				<label for="role-<?php echo $role['id'];?>"><?php echo $role['name']; ?></label>
+			</div>
+		<?php
+			}
+		?>
           <div class="form-group text-center">
             <button type="submit" class="btn btn-primary" name="btn-register" id = "btn-register">Update</button>
           </div>
