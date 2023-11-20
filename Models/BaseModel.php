@@ -93,7 +93,7 @@
         public function find_by_id($id){
             $select = implode(',', $this->colums);
 
-            $sql = "SELECT ${select} FROM $this->table WHERE $this->primaryKey = $id"; 
+            $sql = "SELECT ${select} FROM $this->table WHERE id = $id"; 
             return mysqli_fetch_assoc($this->_query($sql));
         }
 
@@ -113,7 +113,7 @@
             return $data;
         }
 
-        protected function _query($sql){
+        public function _query($sql){
             return mysqli_query($this->connect, $sql);
         }
 

@@ -1,5 +1,6 @@
 <?php
-    class LessonsModel extends BaseModel{
+    class LessonsModel extends BaseModel
+    {
         protected $table = "lessons";
 
         protected $colums = [

@@ -16,11 +16,11 @@ class BaseController{
             $$key = $value;
         }
 
-        include self::VIEWS_FOLDER_NAME . str_replace('.', '/', $viewPath) . '.php';
+        include_once self::VIEWS_FOLDER_NAME . str_replace('.', '/', $viewPath) . '.php';
     }
 
     protected function loadModel($modelPath){
         // die('Load Model');
-        require self::MODELS_FOLDER_NAME . str_replace('.', '/', $modelPath) . '.php';
+        require_once self::MODELS_FOLDER_NAME . str_replace('.', '/', $modelPath) . '.php';
     }
 }

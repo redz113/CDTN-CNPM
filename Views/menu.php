@@ -1,6 +1,6 @@
 <div class="fixed-top">
         <!-- Topbar Start -->
-    <div class="container-fluid bg-dark">
+    <!-- <div class="container-fluid bg-dark">
         <div class="row py-2 px-lg-5">
             <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
                 <div class="d-inline-flex align-items-center text-white">
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Topbar -->
   
   
@@ -110,3 +110,6 @@
             updateMenuByIndex(currentIndex);
         });
     </script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>

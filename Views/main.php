@@ -15,4 +15,3 @@
             $controllerObj = new $controllerName;
             $controllerObj->$actionName();
         ?>  
-</main>

@@ -15,16 +15,14 @@
 			        <h5 class="card-title text-capitalize mb-0"><?php echo $course['name']; ?></h5>
 			        <strong class="font-weight-light font-italic"><?php echo $course['described']; ?></strong>
                     <h6 class="m-0">Ngày tạo: <?php echo date_format(date_create($course['created_at']), 'd/m/Y'); ?></h6>
-                    <h6>Lượt truy cập: <?php echo $course['interact']; ?></h6>
-			        <a href="./?ctl=lessons" class="d-block mt-2 btn btn-primary text-uppercase">Vào học</a>
+                    <h6>Lượt truy cập: <span class="text-primary"><?php echo $course['interact']; ?></span></h6>
+			        <a href="./?ctl=lessons&courseId=<?php echo $course['id']; ?>" class="d-block mt-2 btn btn-primary text-uppercase">Vào học</a>
 			      </div>
 			    </div>
 			  </div>
 
 	<?php 
-		}}else{
-            echo "<h3 class='text-danger'>Không tìm thấy!!!</h3>";
-        }
+		}}
 	?>				
 </div>
 
@@ -43,9 +41,9 @@
 			        <h5 class="card-title text-capitalize mb-0"><?php echo $course['name']; ?></h5>
 			        <strong class="font-weight-light font-italic"><?php echo $course['described']; ?></strong>
                     <h6 class="m-0">Ngày tạo: <?php echo date_format(date_create($course['created_at']), 'd/m/Y'); ?></h6>
-                    <h6>Lượt truy cập: <?php echo $course['interact']; ?></h6>
+                    <h6>Lượt truy cập: <span class="text-primary"><?php echo $course['interact']; ?></span></h6>
 			        <div class="row mt-2 justify-content-center">
-                        <a href="#" class="col-auto btn btn-primary m-1 text-uppercase">Học thử</a>
+                        <a href="./?ctl=lessons&courseId=<?php echo $course['id']; ?>" class="col-auto btn btn-primary m-1 text-uppercase">Học thử</a>
                         <a href="#" class="col-auto btn btn-success m-1 text-uppercase">Mua <?php echo $course['price']; ?> VND</a>
                     </div>
 			      </div>
@@ -53,8 +51,8 @@
 			  </div>
 
 	<?php 
-		}}else{
-            echo "<h3 class='text-danger'>Không tìm thấy!!!</h3>";
-        }
+		}}
 	?>				
 </div>
+
+</main>
