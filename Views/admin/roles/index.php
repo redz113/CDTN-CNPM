@@ -5,10 +5,13 @@
         </div>
         <div class="float-right">
 
-            <!-- 
-                Chưa xử lý phân quyền
-             -->
-            <a href="./?ctl=roles&act=create<?php echo isset($_GET['page']) ? "&page=".$_GET['page']:""; ?>" class="btn btn-success">Tạo quyền mới</a>
+            <?php
+                if(in_array('role-create', $_SESSION['permissions'])){
+                ?>
+                    <a href="./?ctl=roles&act=create<?php echo isset($_GET['page']) ? "&page=".$_GET['page']:""; ?>" class="btn btn-success">Tạo quyền mới</a>
+                <?php
+                }
+            ?>
         </div>
     </div>
 
@@ -18,8 +21,8 @@
                 <tr class="badge-default">
                     <th class="text-center">#</th>
                     <th class="text-center" style="min-width: 150px;">Vai trò</th>
-                    <th class="text-center" style="min-width: 200px;">Quyền truy cập</th>
-                    <th class="text-center">Thao tác</th>
+                    <th class="text-center" style="min-width: 300px;">Quyền truy cập</th>
+                    <th class="text-center" style="min-width: 160px;">Thao tác</th>
                 </tr> 
 
                 <?php
@@ -37,7 +40,7 @@
                                     if($role['id'] == $value['roleId']){
                                         foreach($permissions as $permission){
                                             if($permission['id'] == $value['permissionId']){
-                                                echo $permission['name'] . "<br>";
+                                                echo $permission['name'] . ", ";
                                             } else continue;
                                         }
                                     } else continue;
@@ -46,16 +49,23 @@
                         </td>       
                         <td class="align-middle">
 
-                        <!-- 
-                            chưa xử lý phân quyền
-                         -->
-                            <!-- <a href="./?ctl=courses&act=show&id=<?php echo $role['id']; echo isset($_GET['page']) ? "&page=".$_GET['page']:""; ?>" class="btn btn-info mr-2 mt-2">Xem</a> -->
-                            <a href="./?ctl=roles&act=edit&id=<?php echo $role['id']; echo isset($_GET['page']) ? "&page=".$_GET['page']:""; ?>" class="btn btn-primary mr-2 mt-2">Sửa</a>
-                            <form action="./?ctl=roles&act=destroy&id=<?php echo $role['id'];?>" method="POST" 
-                            onsubmit="return confirmDelete('<?php echo 'Bạn có chắc muốn xóa quyền `' .  $role['name'] . '` không?'; ?>')"
-                            class="d-inline-block">
-                                <input  type="submit" name="submit" value="Xóa" class="btn btn-danger mt-2">
-                            </form>
+                        <?php
+                            if(in_array('role-update', $_SESSION['permissions'])){
+                            ?>
+                                <a href="./?ctl=roles&act=edit&id=<?php echo $role['id']; echo isset($_GET['page']) ? "&page=".$_GET['page']:""; ?>" class="btn btn-primary mr-2 mt-2">Sửa</a>
+                            <?php      
+                            }
+
+                            if(in_array('role-delete', $_SESSION['permissions'])){
+                            ?>
+                                <form action="./?ctl=roles&act=destroy&id=<?php echo $role['id'];?>" method="POST" 
+                                onsubmit="return confirmDelete('<?php echo 'Bạn có chắc muốn xóa quyền `' .  $role['name'] . '` không?'; ?>')"
+                                class="d-inline-block">
+                                    <input  type="submit" name="submit" value="Xóa" class="btn btn-danger mt-2">
+                                </form>                           
+                            <?php
+                            }
+                        ?>
                         </td> 
                     </tr>
 

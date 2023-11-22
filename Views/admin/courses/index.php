@@ -5,7 +5,13 @@
                 <h2>Quản lý khóa học</h2>
             </div>
             <div class="col-6">
-                <a href="./?ctl=courses&act=create<?php echo isset($_GET['page']) ? "&page=".$_GET['page']:""; ?>" class="btn btn-success float-right">Tạo khóa học</a>
+            <?php
+                if(in_array('course-create', $_SESSION['permissions'])){
+                ?>
+                    <a href="./?ctl=courses&act=create<?php echo isset($_GET['page']) ? "&page=".$_GET['page']:""; ?>" class="btn btn-success float-right">Tạo khóa học</a>
+                <?php
+                }
+            ?>
             </div>
         </div>
         <!-- <div class="row">
@@ -59,17 +65,26 @@
                             ?> 
                         </td>
                         <td class="align-middle text-right">
-
-                        <!-- 
-                            chưa xử lý phân quyền
-                         -->
                             <a href="./?ctl=courses&act=show&id=<?php echo $value['id']; echo isset($_GET['page']) ? "&page=".$_GET['page']:""; ?>" class="btn btn-info mr-2 mt-2">Xem</a>
-                            <a href="./?ctl=courses&act=edit&id=<?php echo $value['id']; echo isset($_GET['page']) ? "&page=".$_GET['page']:""; ?>" class="btn btn-primary mr-2 mt-2">Sửa</a>
-                            <form action="./?ctl=courses&act=destroy&id=<?php echo $value['id'];?>" method="POST" 
-                            onsubmit="return confirmDelete('<?php echo 'Bạn có chắc muốn xóa khóa học `' .  $value['name'] . '` không?'; ?>')"
-                            class="d-inline-block">
-                                <input  type="submit" name="submit" value="Xóa" class="btn btn-danger mt-2">
-                            </form>
+                            
+                        <?php
+                            if(in_array('exercise-update', $_SESSION['permissions'])){
+                            ?>
+                                <a href="./?ctl=courses&act=edit&id=<?php echo $value['id']; echo isset($_GET['page']) ? "&page=".$_GET['page']:""; ?>" class="btn btn-primary mr-2 mt-2">Sửa</a>
+                            <?php      
+                            }
+
+                            if(in_array('exercise-delete', $_SESSION['permissions'])){
+                            ?>                           
+                                <form action="./?ctl=courses&act=destroy&id=<?php echo $value['id'];?>" method="POST" 
+                                onsubmit="return confirmDelete('<?php echo 'Bạn có chắc muốn xóa khóa học `' .  $value['name'] . '` không?'; ?>')"
+                                class="d-inline-block">
+                                    <input  type="submit" name="submit" value="Xóa" class="btn btn-danger mt-2">
+                                </form>
+                            <?php
+                            }
+                        ?>
+                            
                         </td> 
                     </tr>
 

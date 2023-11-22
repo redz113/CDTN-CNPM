@@ -62,7 +62,7 @@
 
                     <input type="hidden" name="id" value="<?php echo isset($id) ? $id : $_GET['id']; ?>">
 
-                    <button class="btn btn-success px-5 mt-5 float-right" type="submit">Thêm mới</button>
+                    <button class="btn btn-success px-5 mt-5 float-right" type="submit">Cập nhập</button>
                     
                 </form>
             </div>

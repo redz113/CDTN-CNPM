@@ -23,9 +23,13 @@ class LessonsController extends BaseController{
             $this->coursesModel->_query($sql);
         }
 
+        $limit = "";
+        if($course['price'] > 0){
+            $limit = 2;
+        }
         //
         $where = "courseId = '" . $course['name'] . "'";
-        $this->data['lessons'] = $this->lessonsModel->all('', '', [$where], '', '', ['relate' => 'asc']);
+        $this->data['lessons'] = $this->lessonsModel->all('', '', [$where], 0, $limit, ['relate' => 'asc']);
         return $this->view('lessons.index', $this->data);
     }
 
@@ -33,6 +37,10 @@ class LessonsController extends BaseController{
         if(isset($_GET['id'])){
             $this->data['lessonShow'] = $this->lessonsModel->find_by_id($_GET['id']);
         }else{
+            $id = $_GET['courseId'];
+            $course = $this->coursesModel->find_by_id($id);
+            $where = "courseId = '" . $course['name'] . "'";
+            $this->data['lessons'] = $this->lessonsModel->all('', '', [$where], '', '', ['relate' => 'asc']);
             $this->data['lessonShow'] = $this->data['lessons']['0'];
         }
         return $this->view('lessons.show', $this->data);

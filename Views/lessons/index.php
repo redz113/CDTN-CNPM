@@ -4,10 +4,10 @@
 #sidebar-wrapper{
   z-index:1;
   padding-top: 20px;
-  position: absolute;
+  position: fixed;
   width:0;
   height:100%;
-  overflow-y:hidden;
+  overflow-y: scroll;
   background: #FFF;
   opacity:0.9;
 	transition:all .5s;
@@ -73,8 +73,6 @@
                 echo "<li><a href='./?ctl=lessons&act=index&courseId=" . $_GET['courseId'] . "&id=" . $lesson['id'] . "'>" . $lesson['name'] . "</a></li>";
             } 
         ?>
-        <!-- <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li> -->
       </ul>
     </div>
     

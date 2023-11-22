@@ -8,12 +8,13 @@
             $this->rolesModel = new RolesModel;
             $this->data["roles"] = $this->rolesModel->all("roles", ['*']);
             $this->data['role_has_permission'] = $this->rolesModel->all('role_has_permission', ['*']);
-            $this->data['permissions'] = $this->rolesModel->all('permissions', ['*']);
+            $this->data['permissions'] = $this->rolesModel->all('permissions', ['*'], '', 0, '', ['name' => 'asc']);
         }
         public function index(){
+            $_SESSION['permissions'] = $this->rolesModel->getPermissionName();
             $this->data["roles"] = $this->rolesModel->all("roles", ['*']);
             $this->data['role_has_permission'] = $this->rolesModel->all('role_has_permission', ['*']);
-            $this->data['permissions'] = $this->rolesModel->all('permissions', ['*']);
+            $this->data['permissions'] = $this->rolesModel->all('permissions', ['*'], '', 0, '', ['name' => 'asc']);
 
             return $this->view('admin.roles.index', $this->data);
         }
