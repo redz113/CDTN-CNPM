@@ -4,14 +4,16 @@
 <div class="card">
     <div class="card-header boder-0">
         <div class="float-left">
-            <h2>Quan ly tai khoan</h2>
+            <h2>Quản lý tài khoản</h2>
         </div>
         <div class="float-right">
-
-            <!-- 
-                Chưa xử lý phân quyền
-             -->
-            <a href="./?act=create&us=1" class="btn btn-success">Tạo tai khoan</a>
+        <?php
+            if(in_array('user-create', $_SESSION['permissions'])){
+            ?>
+                <a href="./?act=create&us=1" class="btn btn-success">Tạo tài khoản</a>
+            <?php
+            }
+        ?>
         </div>
     </div>
 
@@ -52,9 +54,23 @@
                             chưa xử lý phân quyền
                          -->
                             <a href="<?php echo "./?act=getdetail&us=1&id=".$value['id'];?>" class="btn btn-info mr-2 mt-2">Xem</a>
-                            <a href="<?php echo "./?act=update&us=1&id=".$value['id'];?>" class="btn btn-primary mr-2 mt-2">Sửa</a>
-							<a href="<?php echo "./?act=delete&us=1&id=".$value['id'];?>" class="btn btn-danger mr-2 mt-2">Xóa</a>
+                            <?php
+                            if(in_array('exercise-update', $_SESSION['permissions'])){
+                                ?>
+                                    <a href="<?php echo "./?act=update&us=1&id=".$value['id'];?>" class="btn btn-primary mr-2 mt-2">Sửa</a>
+                                    <?php      
+                            }
                             
+                            if(in_array('exercise-delete', $_SESSION['permissions'])){
+                                ?>                           
+                                <form action="./?act=delete&us=1&id=<?php echo $value['id'];?>" method="POST" 
+                                onsubmit="return confirmDelete('<?php echo 'Bạn có chắc muốn xóa tài khoản `' .  $value['name'] . '` không?'; ?>')"
+                                class="d-inline-block">
+                                    <input  type="submit" name="submit" value="Xóa" class="btn btn-danger mr-2 mt-2">
+                                </form>
+                            <?php
+                            }
+                        ?>
                         </td> 
                     </tr>
 

@@ -8,7 +8,7 @@
         <div class="mx-auto mb-5" style="width: 100%; max-width: 600px;">
             <!-- <div class="input-group"> -->
                 <form action="" method="get" class="d-flex">
-                    <input type="text" name="textSearch" class="form-control border-light" style="padding: 30px 25px;" placeholder="Nhập từ khóa...">
+                    <input type="text" name="textSearch" value="<?php echo isset($_GET['textSearch']) ? $_GET['textSearch'] : ""; ?>" class="form-control border-light" style="padding: 30px 25px;" placeholder="Nhập từ khóa...">
                     <div class="input-group-append">
                         <button class="btn btn-secondary px-4 px-lg-5">Tìm kiếm</button>
                     </div>

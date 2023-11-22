@@ -5,7 +5,7 @@
         protected $exercisesModel;
         private $data = [];
 
-        protected $limit = 8;    //Số bản ghi hiển thị trên 1 trang
+        protected $limit = 5;    //Số bản ghi hiển thị trên 1 trang
 
         public function __construct() {
             // $this->_requireModel();                 // BaseController

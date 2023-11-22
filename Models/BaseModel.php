@@ -64,7 +64,7 @@
             if(!empty($where) ){
                 $sql .= " WHERE ";
                 foreach ($where as  $value){
-                    $sql .= "$value OR ";
+                    $sql .= " $value OR ";
                 }
             }
             
@@ -257,9 +257,14 @@
 
         // Paging
 
-        public function paging($limit){
-
-            $totalRecord = mysqli_fetch_array($this->_query("SELECT COUNT(id) FROM $this->table"))['0'];
+        public function paging($limit, $totalRecord = 0 , $param=[]){
+            $paramStr = '';
+            if(isset($param)){
+                $paramStr = implode("&", $param);
+            }
+            if($totalRecord == 0){
+                $totalRecord = mysqli_fetch_array($this->_query("SELECT COUNT(id) FROM $this->table"))['0'];
+            }
             $totalPages = ceil($totalRecord / $limit);
 
             if($totalPages < 2){
@@ -274,14 +279,14 @@
             <ul class="pagination">
             ';
 
-            // Previous
+            // Previous page
 
             $prePage = $pagePresent > 1 ? $pagePresent -1 : $pagePresent;
             $nextPage = $pagePresent < $totalPages ? $pagePresent + 1 : $pagePresent;
     
             $html .= "
             <li class='page-item'>
-            <a class='page-link' href='./?ctl=$this->table&rl=1&page=$prePage' aria-label='Previous'>
+            <a class='page-link' href='./?ctl=$this->table&rl=1&page=$prePage&$paramStr' aria-label='Previous'>
                 <span aria-hidden='true'>&laquo;</span>
                 <span class='sr-only'>Previous</span>
             </a>
@@ -291,11 +296,13 @@
             for($i=1; $i<=$totalPages; $i++){
                 $html .= "<li class='page-item'><a class='page-link";
                 $html .= $pagePresent == $i ? ' bg-primary text-dark ' : '';
-                $html.= "' href='./?ctl=$this->table&rl=1&page=$i'>" . $i ."</a></li>";
+                $html.= "' href='./?ctl=$this->table&page=$i&$paramStr'>" . $i ."</a></li>";
             }
+
+            // Next page
             $html .= "
                 <li class='page-item'>
-                <a class='page-link' href='./?ctl=$this->table&rl=1&page=$nextPage' aria-label='Next'>
+                <a class='page-link' href='./?ctl=$this->table&page=$nextPage&$paramStr' aria-label='Next'>
                     <span aria-hidden='true'>&raquo;</span>
                     <span class='sr-only'>Next</span>
                 </a>

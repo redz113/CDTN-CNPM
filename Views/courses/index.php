@@ -16,11 +16,12 @@
                 <?php
                     if(isset($courses)){
                         foreach($courses as $course){
+                            if($course['price'] != 0) continue;
                             if($course['topicId'] == $topic['name']){
                 ?>
 
                 <div>
-                    Học lập trình <a href="#"> <?php echo $course['name']; ?> </a>
+                    Học lập trình <a href="./?ctl=lessons&courseId=<?php echo $course['id']; ?>"> <?php echo $course['name']; ?> </a>
                 </div>
                 
                 <?php }}} ?>

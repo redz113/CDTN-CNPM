@@ -27,6 +27,36 @@
     </div>
 
     <div class="card-body">
+        <form action="./?ctl=courses" method="GET" class="d-flex justify-content-end mb-3">
+            <input type="hidden" name="ctl" id="" value="courses">
+            <!-- Phan loai -->
+            <select class="badge text-uppercase mr-1" name="topic">
+                <option value="0" selected>Phân loại</option>
+                <?php
+                    foreach($topics as $value){
+                        echo "<option value='" . $value['name'] . "'";
+                        if(isset($_REQUEST['topic']) && $_REQUEST['topic'] == $value['name']) echo "selected"; 
+                        echo ">" . $value['name'] . "</option>";
+                    }
+                ?>
+            </select>
+
+            <!-- Tags -->
+            <select class="badge text-uppercase mr-1" name="tags">
+                <option value="0" selected>Tags</option>
+                <?php
+                    foreach($tags as $value){
+                        echo "<option value='" . $value['name'] . "'";
+                        if(isset($_REQUEST['tags']) && $_REQUEST['tags'] == $value['name']) echo "selected"; 
+                        echo ">" . $value['name'] . "</option>";
+                    }
+                ?>
+            </select>
+
+            <button class="btn btn-dark">Search</button>
+        </form>
+
+
         <div class="table-responsive">
              <table class="table table-bordered table-hover">
                 <tr class="badge-default">
@@ -38,7 +68,7 @@
                     <th class="text-center">Trạng thái</th>
                     <th class="text-center" max-width="270px">Thao tác</th>
                 </tr> 
-
+            <tbody id="myTable">
                 <?php
                     if(isset($courses)){
                         $i = 1;
@@ -79,7 +109,7 @@
                                 <form action="./?ctl=courses&act=destroy&id=<?php echo $value['id'];?>" method="POST" 
                                 onsubmit="return confirmDelete('<?php echo 'Bạn có chắc muốn xóa khóa học `' .  $value['name'] . '` không?'; ?>')"
                                 class="d-inline-block">
-                                    <input  type="submit" name="submit" value="Xóa" class="btn btn-danger mt-2">
+                                    <input  type="submit" name="submit" value="Xóa" class="btn btn-danger mr-2 mt-2">
                                 </form>
                             <?php
                             }
@@ -89,14 +119,13 @@
                     </tr>
 
                 <?php }} ?>
+            </tbody>
             </div>     
         </table>
     </div>
 
     <?php if(isset($paging)) echo $paging; ?>
 </div>
-
-
 
 <script>
     function confirmDelete(messenger){

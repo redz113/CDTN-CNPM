@@ -64,7 +64,7 @@
 </style>
 
 <div class="modal modal-courses">
-<div id="wrapper">
+<div id="wrapper" class="menuDisplayed">
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">

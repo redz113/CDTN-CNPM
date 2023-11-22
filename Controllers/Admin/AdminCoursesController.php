@@ -6,7 +6,7 @@
 
         private $data = [];
 
-        protected $limit = 8;    //Số bản ghi hiển thị trên 1 trang
+        protected $limit = 5;    //Số bản ghi hiển thị trên 1 trang
 
         public function __construct() {
             // $this->_requireModel();                 // BaseController
@@ -28,15 +28,29 @@
         }
 
         public function index() {
+            $where = [];
+            $param = [];
+            if(isset($_REQUEST['topic']) && $_REQUEST['topic'] != '0'){
+                $param[] = "topic=" .$_REQUEST['topic'];
+                $where[] = "topicID LIKE '%" .$_REQUEST['topic'] . "%'";  
+            }
+
+            if(isset($_REQUEST['tags']) && $_REQUEST['tags'] != '0'){
+                $param[] = "tags=" .$_REQUEST['tags'];
+                $where[] = "tags LIKE '%" .$_REQUEST['tags'] . "%'";  
+            }
+            
             // $this->coursesModel->paging();
             $page = isset($_GET['page']) ? $_GET['page'] : 1; 
             
             //JOIN DATA
-            $this->data['courses'] = $this->coursesModel->all("", "", "", 
+            $this->data['courses'] = $this->coursesModel->all("", "", $where, 
                                                         ($page-1)*$this->limit, 
                                                         $this->limit,
                                                         ['relate' => 'ASC']);
-            $this->data["paging"] = $this->coursesModel->paging($this->limit);
+            $totalCourses = $this->coursesModel->all("", ['COUNT(id)'], $where, 
+                                                    '', '')[0]['COUNT(id)'];
+            $this->data["paging"] = $this->coursesModel->paging($this->limit, $totalCourses, $param);
             return $this->view('admin.courses.index', $this->data);
         }
 

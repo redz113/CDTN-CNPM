@@ -19,7 +19,7 @@ class WellcomeController extends BaseController{
         if(isset($_GET['textSearch'])){
             // echo $_GET['textSearch'];
             // unset($this->data['courses']);
-            $this->data['courses'] = $this->coursesModel->search('courses', ['name', 'described'] ,$_GET['textSearch']);
+            $this->data['courses'] = $this->coursesModel->search('courses', ['tags', 'name'] ,$_GET['textSearch']);
         }
         return $this->view('wellcome.index', $this->data);
     }
