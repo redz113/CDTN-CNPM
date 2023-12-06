@@ -43,11 +43,13 @@
                 //Lay id
                 $roleId = $this->rolesModel->lastRow('roles')['id'];
                 
-                foreach($_REQUEST['permission'] as $permission){
-                    $this->rolesModel->add('role_has_permission', [
-                        'roleId'=> $roleId,
-                        'permissionId' => $permission,
-                    ]);
+                if(isset($_REQUEST['permission'])){
+                    foreach($_REQUEST['permission'] as $permission){
+                        $this->rolesModel->add('role_has_permission', [
+                            'roleId'=> $roleId,
+                            'permissionId' => $permission,
+                        ]);
+                    }
                 }
             }else{
                 return $this->view('admin.roles.create', $this->data);

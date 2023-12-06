@@ -27,33 +27,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <title>Tao tai khoan</title>
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
+  <title>tạo tài khoản</title>
 </head>
 <body>
   <div class="container">
+  <div class="row">
+			<a href="./?us=users&act=index" class="btn btn-primary">Quay lại</a>
+		</div>
     <div class="row justify-content-center mt-5">
       <div class="col-md-4">
-        <h2 class="text-center mb-4">Tao tai khoan</h2>
+        <h2 class="text-center mb-4">Tạo tài khoản</h2>
         <form method="post">
           <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username">Tên đăng nhập</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Mật khẩu</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
           </div>
           <div class="form-group">
-            <label for="confirm-password">Confirm Password</label>
+            <label for="confirm-password">Xác nhận mật khẩu</label>
             <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
           </div>
 		  <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Tên</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
           </div>
 		  <div class="form-group">
-            <label for="email">Email address</label>
+            <label for="email">Địa chỉ email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
           </div>
 
@@ -70,7 +73,7 @@
 		?>
 		  
           <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary" name="btn-register" id = "btn-register">Register</button>
+            <button type="submit" class="btn btn-primary" name="btn-register" id = "btn-register">Đăng ký</button>
           </div>
 		  <div class="text-center">
             <!-- Already have an account? <a href="login.php">Login here</a> -->

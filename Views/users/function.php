@@ -79,21 +79,21 @@
 		$errors = [];
 		// Kiểm tra tính hợp lệ của username
 		if (empty($username)) {
-			$errors[] = "Username không được để trống";
+			$errors[] = "tài khoản không được để trống";
 		}
 		// Kiểm tra tính hợp lệ của password
 		if (empty($password)) {
-			$errors[] = "Password không được để trống";
+			$errors[] = "Mật khẩu không được để trống";
 		}
 		// Kiểm tra tính hợp lệ của confirm password
 		if (empty($confirmPassword)) {
-			$errors[] = "Confirm Password không được để trống";
+			$errors[] = "Xác nhận mật khẩu không được để trống";
 		} elseif ($password !== $confirmPassword) {
-			$errors[] = "Confirm Password không khớp với Password";
+			$errors[] = "Mật khẩu không trùng nhau";
 		}
 		// Kiểm tra tính hợp lệ của name
 		if (empty($name)) {
-			$errors[] = "Name không được để trống";
+			$errors[] = "Tên hiển thị không được để trống";
 		}
 		// Kiểm tra tính hợp lệ của email
 		if (empty($email)) {

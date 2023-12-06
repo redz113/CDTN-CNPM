@@ -28,8 +28,11 @@ class LessonsController extends BaseController{
             $limit = 2;
         }
         //
-        $where = "courseId = '" . $course['name'] . "'";
-        $this->data['lessons'] = $this->lessonsModel->all('', '', [$where], 0, $limit, ['relate' => 'asc']);
+        $where[] = "courseId = " . $course['id'];
+        
+        $this->data['lessons'] = $this->lessonsModel->getDataJoin(['name'], 'courses', 
+                                                                'lessons.courseId = courses.id', $where, 
+                                                                0, $limit);
         return $this->view('lessons.index', $this->data);
     }
 
@@ -39,7 +42,7 @@ class LessonsController extends BaseController{
         }else{
             $id = $_GET['courseId'];
             $course = $this->coursesModel->find_by_id($id);
-            $where = "courseId = '" . $course['name'] . "'";
+            $where = "courseId = '" . $course['id'] . "'";
             $this->data['lessons'] = $this->lessonsModel->all('', '', [$where], '', '', ['relate' => 'asc']);
             $this->data['lessonShow'] = $this->data['lessons']['0'];
         }

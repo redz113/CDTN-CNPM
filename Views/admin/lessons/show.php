@@ -13,7 +13,15 @@
 
         <div class="row mb-2">
             <h5 class="pl-md-3 font-weight-bold ">Khóa học:
-                <span class="text-uppercase text-danger"><?php echo $lesson['courseId'];?></span>
+                <span class="text-uppercase text-danger">
+                    <?php 
+                        foreach($courses as $course){
+                            if($lesson['courseId'] == $course['id']){
+                                echo $course['name'];
+                            }
+                        } 
+                    ?>
+                </span>
             </h5>
         </div>
 

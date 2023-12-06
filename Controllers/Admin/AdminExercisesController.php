@@ -19,14 +19,26 @@
         }
 
         public function index() {
-            // $this->coursesModel->paging();
+            $where = [];
+            $param = [];
+            if(isset($_REQUEST['course']) && $_REQUEST['course'] != '0'){
+                $param[] = "course=" .$_REQUEST['course'];
+                $where[] = "courseId LIKE '%" .$_REQUEST['course'] . "%'";  
+            }
+
             $page = isset($_GET['page']) ? $_GET['page'] : 1; 
 
-            $this->data['exercises'] = $this->exercisesModel->all("", "","", 
-                                                        ($page-1)*$this->limit, 
-                                                        $this->limit,
-                                                        ['relate' => 'asc']);
-            $this->data["paging"] = $this->exercisesModel->paging($this->limit);
+            // $this->data['exercises'] = $this->exercisesModel->all("", "",$where, 
+            //                                             ($page-1)*$this->limit, 
+            //                                             $this->limit,
+            //                                             ['relate' => 'asc']);
+
+            $this->data['exercises'] = $this->exercisesModel->getDataJoin(['name'], 'courses', 
+                                                                    'exercises.courseId = courses.id', $where,
+                                                                    ($page-1)*$this->limit, $this->limit);
+            $totalRecord = $this->exercisesModel->all('', ['COUNT(id)'], $where)[0]['COUNT(id)'];
+            $totalRecord = ($totalRecord == 0) ? 1 : $totalRecord;
+            $this->data["paging"] = $this->exercisesModel->paging($this->limit, $totalRecord, $param);
             return $this->view('admin.exercises.index', $this->data);
         }
 

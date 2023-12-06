@@ -1,3 +1,9 @@
+<?php
+
+?>
+
+
+
 <!-- Admin -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"> -->
 <link rel="stylesheet" href="./css/adminStyle.css">
@@ -14,8 +20,9 @@
                     ?>
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <!-- <li><a class="text-nav dropdown-item py-2" href="./?ui=1">Giao diện người dùng</a></li> -->
                     <li><a class="text-nav dropdown-item py-2" href="">Thông tin cá nhân</a></li>
-                    <li><a class="text-nav dropdown-item py-2" href="">Đổi mật khẩu</a></li>
+                    <li><a class="text-nav dropdown-item py-2" href="./?act=resetpassword&us=1">Đổi mật khẩu</a></li>
                     <li><a class="text-nav dropdown-item py-2" href="./logout.php">Đăng xuất</a></li>
             </ul>
             </div>
@@ -24,37 +31,46 @@
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
+            <!-- <li>
+                <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">Dropdown</a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item">1</li>
+                    <li class="dropdown-item">2</li>
+                    <li class="dropdown-item">3</li>
+                </ul>
+            </li> -->
       <?php
             if(in_array("user-access", $_SESSION['permissions'])){
-                echo "<li><a href='./?us=" .rand(1, 100) . "&act=index'>Tài khoản</a></li>";
+                echo "
+                    <li class='pl-4'><a href='./?us=" .rand(1, 100) . "&act=index'>Tài khoản</a></li>";
                 }
             ?>
 
 
             <?php
                 if(in_array("course-access", $_SESSION['permissions'])){
-                    echo "<li><a href='./?ctl=courses'>Khóa học</a></li>";
+                    echo "<li class='pl-4'><a href='./?ctl=courses'>Khóa học</a></li>";
                 }
             ?>
 
 
             <?php
                 if(in_array("lesson-access", $_SESSION['permissions'])){
-                    echo "<li><a href='./?ctl=lessons' >Bài giảng</a></li>";
+                    echo "<li class='pl-4'><a href='./?ctl=lessons' >Bài giảng</a></li>";
                 }
             ?>
 
 
             <?php
                 if(in_array("exercise-access", $_SESSION['permissions'])){
-                    echo "<li><a href='./?ctl=exercises'>Bài tập</a></li>";
+                    echo "<li class='pl-4'><a href='./?ctl=exercises'>Bài tập</a></li>";
                 }
             ?>
             
             
             <?php
                 if(in_array("role-access", $_SESSION['permissions'])){
-                    echo "<li><a href='./?ctl=roles'>Phân quyền</a></li>";
+                    echo "<li class='pl-4'><a href='./?ctl=roles'>Phân quyền</a></li>";
                 }
             ?>
       </ul>

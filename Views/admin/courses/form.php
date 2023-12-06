@@ -54,7 +54,7 @@
                                     echo " selected ";
                                 }
                             ?>
-                            value="<?php echo $value['name']; ?>"><?php echo $value['name']; ?> </option>
+                            value="<?php echo $value['id']; ?>"><?php echo $value['name']; ?> </option>
                                                 
                     <?php } ?>
                 </select>
@@ -69,7 +69,7 @@
                     <?php
                         foreach($courses as $value){
                     ?>
-                        <option <?php if($courseEdit['id'] == $value['id']) echo "selected"; ?> value="<?php echo $value['relate']; ?>"><?php echo $value['name']; ?></option>
+                        <option <?php if(isset($courseEdit['id']) && $courseEdit['id'] == $value['id']) echo "selected"; ?> value="<?php echo $value['relate']; ?>"><?php echo $value['name']; ?></option>
                     <?php   
                         }
                     ?>
@@ -90,15 +90,6 @@
                 if(isset($courseEdit)){echo $courseEdit['inputs'];}
                 ?></textarea>
         </div>
-        <!-- <div class="col-sm-6">
-            <label class="form-label">Đầu ra</label>
-            <textarea name="outputs" id="outputs" class="form-control" placeholder="Khững kiến thức thu được sau khóa học..." rows="6"><?php 
-                if(isset($_POST['outputs']) && trim($_POST['outputs']) != ""){
-                    echo $_POST['outputs'];
-                }
-                if(isset($courseEdit)){echo $courseEdit['outputs'];}
-                ?></textarea>
-        </div> -->
     </div>
 </div>
 
@@ -108,7 +99,7 @@
         <div class="col-sm-4">
         <label class="form-label">Image</label>
             <div class="mb-4 d-flex justify-content-center">
-                <img id="selectedImage" src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg"
+                <img id="selectedImage" src="<?php echo (isset($courseEdit) ? $courseEdit['fileUpload'] : 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg'); ?>"
                 alt="example placeholder" style="width: 300px; height: 160px;" />
             </div>
             <div class="d-flex justify-content-center">

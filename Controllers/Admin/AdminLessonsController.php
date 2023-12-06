@@ -19,14 +19,27 @@ class AdminLessonsController extends BaseController{
     }
 
     public function index() {
-        // $this->coursesModel->paging();
+        $where = [];
+        $param = [];
+        if(isset($_REQUEST['course']) && $_REQUEST['course'] != '0'){
+            $param[] = "course=" .$_REQUEST['course'];
+            $where[] = "courseId LIKE '%" .$_REQUEST['course'] . "%'";  
+        }
+
         $page = isset($_GET['page']) ? $_GET['page'] : 1; 
 
-        $this->data['lessons'] = $this->lessonsModel->all("", "","", 
-                                                    ($page-1)*$this->limit, 
-                                                    $this->limit,
-                                                    ['relate' => 'asc']);
-        $this->data["paging"] = $this->lessonsModel->paging($this->limit);
+        // $this->data['lessons'] = $this->lessonsModel->all("", "",$where, 
+        //                                             ($page-1)*$this->limit, 
+        //                                             $this->limit,
+        //                                             ['relate' => 'asc']);
+
+        $this->data['lessons'] = $this->lessonsModel->getDataJoin(['name'], 'courses', 
+                                                                    'lessons.courseId = courses.id', $where,
+                                                                    ($page-1)*$this->limit, $this->limit);
+
+        $totalRecord = $this->lessonsModel->all('', ['COUNT(id)'], $where)[0]['COUNT(id)'];
+        $totalRecord = ($totalRecord == 0) ? 1 : $totalRecord;
+        $this->data["paging"] = $this->lessonsModel->paging($this->limit,$totalRecord, $param);
         return $this->view('admin.lessons.index', $this->data);
     }
 

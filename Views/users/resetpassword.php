@@ -1,6 +1,6 @@
 <?php 
 	include_once "function.php";
-	$user = $_GET['id'];
+	$user = $_SESSION['id'];
 	$otp = "";
 	$new_password = "";
 	$confirm_password = "";
@@ -25,17 +25,12 @@
 		}
 	}
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset mật khẩu</title>
-    <!-- Liên kết với Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <div class="container mt-5">
+		<div class="row">
+			<a href="./../../" class="btn btn-primary px-4">Trang chủ</a>
+		</div>
+
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h2 class="mt-5 mb-3">Reset mật khẩu</h2>
@@ -68,5 +63,3 @@
     <!-- Liên kết với Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>

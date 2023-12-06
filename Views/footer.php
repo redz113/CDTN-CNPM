@@ -1,6 +1,6 @@
 
 <!-- Footer Start -->
-<div class="container-fluid position-relative bg-dark text-white-50 mt-0">
+<div class="container-fluid position-relative bg-dark text-white-50 mt-0 ">
     <div class="container pt-5">
         <!-- <div class="row">
             <div class="col-md-6 mb-5">

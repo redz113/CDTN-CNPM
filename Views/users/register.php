@@ -34,42 +34,45 @@
   <title>Registration</title>
 </head>
 <body>
-  <div class="container">
-    <div class="row justify-content-center mt-5">
+  <div class="container mt-5">
+    <div class="row">
+			<a href="./../../" class="btn btn-primary px-4">Trang chủ</a>
+		</div>
+    <div class="row justify-content-center mt-1">
       <div class="col-md-4">
-        <h2 class="text-center mb-4">Registration</h2>
+        <h2 class="text-center mb-4">Đăng ký</h2>
         <form method="post">
           <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username">Tài khoản</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Mật khẩu</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
           </div>
           <div class="form-group">
-            <label for="confirm-password">Confirm Password</label>
+            <label for="confirm-password">Xác nhận mật khẩu</label>
             <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
           </div>
 		  <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Tên hiển thị</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
           </div>
 		  <div class="form-group">
-            <label for="email">Email address</label>
+            <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
           </div>
           <div class="form-group">
             <div class="form-check">
               <input type="checkbox" class="form-check-input" id="agree" name="agree">
-              <label class="form-check-label" for="agree">I agree to the terms and conditions</label>
+              <label class="form-check-label" for="agree">Tôi đồng ý với điều kiện</label>
             </div>
           </div>
           <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary" name="btn-register" id = "btn-register">Register</button>
+            <button type="submit" class="btn btn-primary" name="btn-register" id = "btn-register">Đăng ký</button>
           </div>
 		  <div class="text-center">
-            Already have an account? <a href="./login.php">Login here</a>
+            Bạn đã có tài khoản? <a href="./login.php">Đăng nhập ngay</a>
 			<p style="color:red">
 				<?php 
 				if(!empty($errors)){

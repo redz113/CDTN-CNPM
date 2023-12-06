@@ -17,21 +17,34 @@
         </div>
     </div>
 
-    <!-- @if(Session::has('success'))
-        <div class="alert alert-success" role="alert">
-            {{ Session::get('success') }}
-        </div>
-    @endif -->
-
     <div class="card-body">
+        <form method="GET" class="d-flex justify-content-end mb-3">
+            <input type="hidden" name="us" id="" value="1">
+            <input type="hidden" name="act" id="" value="index">
+            <!-- Phan loai -->
+            <select class="badge text-uppercase mr-1" name="role">
+                <option value="0" selected>Vai trò</option>
+                <?php
+                    $model = new BaseModel;
+                    $roles = $model->all('roles', ['*']);
+                    foreach($roles as $value){
+                        echo "<option value='" . $value['name'] . "'";
+                        if(isset($_REQUEST['role']) && $_REQUEST['role'] == $value['name']) echo "selected"; 
+                        echo ">" . $value['name'] . "</option>";
+                    }
+                ?>
+            </select>
+            <button class="btn btn-dark">Search</button>
+        </form>
+
         <div class="table-responsive">
              <table class="table table-bordered table-hover">
                 <tr class="badge-default">
                     <th class="text-center">ID</th>
-                    <th class="text-center" >Name</th>
-                    <th class="text-center" >Username</th>
+                    <th class="text-center" >Tên</th>
+                    <th class="text-center" >Tên đăng nhập</th>
                     <th class="text-center" >Email</th>
-                    <th class="text-center" >Role</th>
+                    <th class="text-center" >Quyền</th>
                     <th class="text-center" >Thao tác</th>
                 </tr> 
 
@@ -40,6 +53,7 @@
                     if(isset($users)){
                         $i = 1;
                         foreach($users as $value){
+                            if(isset($_GET['role']) && $_GET['role'] != $value['role']) continue;
                 ?>
                     <tr>
 						<input type="hidden" id="custId" name="custId" value="<?php echo $value['id']; ?>">

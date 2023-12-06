@@ -44,12 +44,18 @@
             $page = isset($_GET['page']) ? $_GET['page'] : 1; 
             
             //JOIN DATA
-            $this->data['courses'] = $this->coursesModel->all("", "", $where, 
-                                                        ($page-1)*$this->limit, 
-                                                        $this->limit,
-                                                        ['relate' => 'ASC']);
+            // $this->data['courses'] = $this->coursesModel->all("", "", $where, 
+            //                                             ($page-1)*$this->limit, 
+            //                                             $this->limit,
+            //                                             ['relate' => 'ASC']);
+
+            $this->data['courses'] = $this->coursesModel->getDataJoin(['name'], 'topics', 
+                                                                    'courses.topicId = topics.id', $where, 
+                                                                    ($page-1)*$this->limit, $this->limit);
+
             $totalCourses = $this->coursesModel->all("", ['COUNT(id)'], $where, 
                                                     '', '')[0]['COUNT(id)'];
+            $totalCourses = $totalCourses == 0 ? 1 : $totalCourses;
             $this->data["paging"] = $this->coursesModel->paging($this->limit, $totalCourses, $param);
             return $this->view('admin.courses.index', $this->data);
         }
@@ -126,22 +132,22 @@
         }
 
         public function destroy(){
-            $this->coursesModel->destroy(['exercises']);
+            $this->coursesModel->destroy(['exercises', 'lessons']);
             echo "<script>alert('Xóa khóa học thành công');</script>";
             return $this->index();
         }
 
         public function show(){
             $this->data['course'] = $this->coursesModel->find_by_id($_REQUEST['id']);
-            $courseName = $this->data['course']['name'];
+            $courseId = $_REQUEST['id'];
 
             //lấy bài giảng
             $this->data['lessons'] = $this->coursesModel->all("lessons", ['*'], 
-                                                            ["courseId = '" . $courseName ."'"],
+                                                            ["courseId = '" . $courseId ."'"],
                                                             '','', ['relate' => 'asc']);
             //lấy bài tập
             $this->data['exercises'] = $this->coursesModel->all("exercises", ['*'], 
-                                                            ["courseId = '" . $courseName ."'"],
+                                                            ["courseId = '" . $courseId ."'"],
                                                             '','', ['relate' => 'asc']);
             return $this->view('admin.courses.show', $this->data);
         }

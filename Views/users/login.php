@@ -29,7 +29,7 @@
 					header("Location: ./enterconfirmcode.php?user=". $md5);
 				}
 				else{
-					$warning = "Wrong login information.";
+					$warning = "Thông tin đăng nhập sai!";
 				}
             }
         }
@@ -44,36 +44,39 @@
   <title>Login</title>
 </head>
 <body>
-<div class="container">
+<div class="container mt-5">
+    <div class="row">
+			<a href="./../../" class="btn btn-primary px-4">Trang chủ</a>
+		</div>
     <div class="row justify-content-center mt-5">
       <div class="col-md-4">
-        <h2 class="text-center mb-4">Login</h2>
+        <h2 class="text-center mb-4">Đăng nhập</h2>
         <form method="post">
           <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username">Tài khoản</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Mật khẩu</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Password">
           </div>
 			<div class="form-group justify-content-between">
             <div class="form-check text-right">
               <input type="checkbox" class="form-check-input" id="remember" name="remember">
-              <label class="form-check-label" for="remember">Remember me</label>
+              <label class="form-check-label" for="remember">Nhớ mật khẩu</label>
             </div>
           </div>
           <div class="form-group d-flex justify-content-between">
             <div class="ml-auto">
-              <button type="submit" class="btn btn-primary" name="btn-login" id="btn-login">Submit</button>
+              <button type="submit" class="btn btn-primary" name="btn-login" id="btn-login">Đăng nhập</button>
             </div>
             <div class="ml-auto">
-              <a href="./forgot.php">Forgot password?</a>
+              <a href="./forgot.php">Quên mật khẩu?</a>
             </div>
           </div>
         </form>
 		<div class="text-center">
-            Do not have an account? <a href="./register.php">Register here</a>
+            Bạn chưa có tài khoản? <a href="./register.php"> Đăng ký</a>
 			<?php echo '<p style="color:red;">' .$warning. '</p>'; ?>
          </div>
       </div>

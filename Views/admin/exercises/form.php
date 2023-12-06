@@ -44,12 +44,12 @@
                 ?>
                             <option 
                             <?php
-                                if((isset($_POST['courseId']) && $_POST['courseId'] == $value['name']) 
-                                    || (isset($exerciseEdit['courseId']) && $exerciseEdit['courseId'] == $value['name'])){
+                                if((isset($_POST['courseId']) && $_POST['courseId'] == $value['id']) 
+                                    || (isset($exerciseEdit['courseId']) && $exerciseEdit['courseId'] == $value['id'])){
                                     echo " selected ";
                                 }
                             ?>
-                            value="<?php echo $value['name']; ?>"><?php echo $value['name']; ?></option>
+                            value="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></option>
                 <?php }
             } ?>
             </select>
@@ -64,9 +64,9 @@
                         foreach($courses as $val){
                             echo "<optgroup label='" . $val['name'] ."'>";
                             foreach($exercises as $value){
-                                if(($value['courseId'] != $val['name'])){ continue;}
+                                if(($value['courseId'] != $val['id'])){ continue;}
                     ?>
-                                <option <?php if($exerciseEdit['id'] == $value['id']) echo "selected"; ?>  value="<?php echo $value['relate']; ?>"><?php echo $value['name']; ?></option>
+                                <option <?php if(isset($exerciseEdit['id']) && $exerciseEdit['id'] == $value['id']) echo "selected"; ?>  value="<?php echo $value['relate']; ?>"><?php echo $value['name']; ?></option>
                     <?php   
                         }
                         echo "</optgroup>";
@@ -95,7 +95,7 @@
             alt="example placeholder" style="width: 300px; height: 160px;" />
         </div> -->
         <div class="embed-responsive embed-responsive-16by9">
-            <iframe id="selectedFile" class="embed-responsive-item" src="" allowfullscreen></iframe>
+            <iframe id="selectedFile" class="embed-responsive-item" src="<?php echo (isset($exerciseEdit) ? $exerciseEdit['fileUpload'] : ""); ?>" allowfullscreen></iframe>
         </div>
     </div>
 </div>

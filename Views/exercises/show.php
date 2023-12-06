@@ -1,14 +1,16 @@
-<div class="modal pb-5 position-absolute top-0 start-0">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="btn btn-success" data-toggle="dropdown">Dropdown Menu</div>
-            <div class="dropdown-menu">
-                <a href="" class="dropdown-item">Item 1</a>
-                <a href="" class="dropdown-item">Item 1</a>
-                <a href="" class="dropdown-item">Item 1</a>
-                <a href="" class="dropdown-item">Item 1</a>
-                <a href="" class="dropdown-item">Item 1</a>
-            </div>
+<div class="container">
+    <div class="text-light h1 text-center mt-5 mb-0"><?php echo $exerciseShow['name']; ?></div>
+    <strong class="text-light mt-5">Hà Nội, <?php echo date_format(date_create($exerciseShow['created_at']), 'd-m-Y H:s:i'); ?></strong>
+    <!-- <div class="row mt-3">
+        <div class="col-6">
+            <a href="" class="btn btn-success rounded px-4 py-2 float-left"><i class="bx bx-left-arrow"></i></a>
         </div>
+        <div class="col-6">
+            <a href="" class="btn btn-success rounded px-4 py-2 float-right"><i class="bx bx-right-arrow"></i></a>
+        </div>
+    </div> -->
+    <div class="embed-responsive embed-responsive-16by9 mt-4">
+        <iframe class="embed-responsive-item" src="<?php echo $exerciseShow['fileUpload']; ?>" allowfullscreen></iframe>
     </div>
 </div>
+

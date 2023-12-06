@@ -177,13 +177,13 @@ body {
 		<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">
-					<div class="preview col-md-6">
+					<div class="preview col-md-5">
 						
 						<div class="preview-pic tab-content">
 						  <div class="tab-pane active" id="pic-1"><img src="<?php echo $course['fileUpload'] ?>" /></div>
 						</div>
 					</div>
-					<div class="details col-md-6">
+					<div class="details col-md-7">
 						<h3 class="product-title"><?php echo $course['name'] ?></h3>
 						<p class="product-description"><?php echo $course['described'] ?></p>
                         <div class="rating">
@@ -242,6 +242,7 @@ body {
             }
           }
         ?>
+        
 
         <div class="col-12"></div>
         <div class='col-sm-auto m-1 px-2 badge text-uppercase'>

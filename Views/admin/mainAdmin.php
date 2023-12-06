@@ -1,6 +1,12 @@
 
 <main class="pt-5">
 <?php 
+
+    // if(isset($_GET['ui'])){
+    //     $_SESSION['ui'] = 1;
+    // }
+
+
     if(isset($_GET['us'])){
         $link = "accounts/". $_GET['act'] . '.php';
         include_once($link);
@@ -18,7 +24,6 @@
     
     $actionName = $_REQUEST['act'] ?? 'index';
     
-
     // echo $controllerName;
     if(isset($_SESSION['permissions']) && count($_SESSION['permissions']) > 0){    // Admin | QTND
         $controllerName = 'Admin' . $controllerName;

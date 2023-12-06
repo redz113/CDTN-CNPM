@@ -14,16 +14,6 @@
             ?>
             </div>
         </div>
-        <!-- <div class="row">
-            <div class="col-sm-3">
-            <label for="phan_loai">Phân loại: </label>
-            <select name="phan_loai" id="phan_loai">
-                <option value="1">ALL</option>
-                <option value="1">HTML</option>
-                <option value="1">CSS</option>
-            </select>
-            </div>
-        </div> -->
     </div>
 
     <div class="card-body">
@@ -34,8 +24,8 @@
                 <option value="0" selected>Phân loại</option>
                 <?php
                     foreach($topics as $value){
-                        echo "<option value='" . $value['name'] . "'";
-                        if(isset($_REQUEST['topic']) && $_REQUEST['topic'] == $value['name']) echo "selected"; 
+                        echo "<option value='" . $value['id'] . "'";
+                        if(isset($_REQUEST['topic']) && $_REQUEST['topic'] == $value['id']) echo "selected"; 
                         echo ">" . $value['name'] . "</option>";
                     }
                 ?>
@@ -66,12 +56,12 @@
                     <th class="text-center">Phân loại</th>
                     <th class="text-center">Giá Bán</th>
                     <th class="text-center">Trạng thái</th>
-                    <th class="text-center" max-width="270px">Thao tác</th>
+                    <th class="text-center" width="240px">Thao tác</th>
                 </tr> 
             <tbody id="myTable">
                 <?php
                     if(isset($courses)){
-                        $i = 1;
+                        $i = (isset($_GET['page'])) ? ($_GET['page'] - 1) * 5 + 1 : 1;
                         foreach($courses as $value){
                 ?>
                 
@@ -79,7 +69,7 @@
                         <td class="align-middle"> <?php echo $i++; ?> </td>
                         <td class="align-middle text-uppercase"> <?php echo $value['name']; ?> </td>  
                         <td class="align-middle"> <?php echo trim($value['described']); ?> </td> 
-                        <td class="align-middle text-uppercase"> <?php echo $value['topicId']; ?> </td>         
+                        <td class="align-middle text-uppercase"> <?php echo $value['topicsName']; ?> </td>         
                         <td class="align-middle">
                             <?php 
                                 echo $value['price'] == 0 ? 

@@ -23,4 +23,16 @@ class BaseController{
         // die('Load Model');
         require_once self::MODELS_FOLDER_NAME . str_replace('.', '/', $modelPath) . '.php';
     }
+
+    public function interfaceConvert(){
+        if(isset($_GET['ui'])){
+            $_SESSION['ui'] = 1;
+            return $this->view('index');
+        }
+
+        if(isset($_GET['ai'])){
+            unset($_SESSION['ui']);
+            return $this->view('admin.index');
+        }
+    }
 }

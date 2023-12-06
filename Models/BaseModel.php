@@ -21,25 +21,39 @@
             $this->connect = $this->connect(); 
         }
 
-        public function getDataJoin($tableName, $on = "", $start=0, $limit = null, $orderBy = ['relate' => 'asc']) {
-            $colums = $this->colums; 
-            foreach ($colums as $key => $value) {
-                $colums[$key] = $this->table .'.'. $value;
+        public function getDataJoin($selectTb2 = [], $tableJoin, $on = "", $where = [], $start=0, $limit = null, $orderBy = ['relate' => 'asc']) {
+            foreach ($this->colums as $value) {
+                $colums[] = $this->table .'.'. $value;
+            }
+
+            if(!empty($selectTb2)){
+                foreach($selectTb2 as $value){
+                    $colums[] = "$tableJoin.$value as $tableJoin" . ucfirst($value); 
+                }
             }
             
-            $colums[] = $tableName . '.name as name2';
             $select = implode(', ', $colums);
 
             $sql = "SELECT $select FROM $this->table
-                    INNER JOIN $tableName
+                    INNER JOIN $tableJoin
                     ON $on
-                    ORDER BY $this->table" ."." . array_keys($orderBy)[0] . " " . array_values($orderBy)[0]
-            ;
+                    ";
+
+            if(!empty($where) ){
+                $sql .= " WHERE ";
+                foreach ($where as  $value){
+                    $sql .= " $value OR ";
+                }
+            }
+
+            $sql = trim($sql ,'OR ');
+
+            $sql .= " ORDER BY $this->table" ."." . array_keys($orderBy)[0] . " " . array_values($orderBy)[0];
 
             if(!empty($limit)){
                 $sql .= " LIMIT $start, $limit";
             }
-
+            
             $query = $this->_query($sql);
 
             $data = [];
@@ -220,12 +234,12 @@
                         }
                     }
 
-                    $sql = "DELETE FROM $table WHERE $where = '" . $data['name'] . "'";
+                    $sql = "DELETE FROM $table WHERE $where = " . $data['id'];
                     $this->_query($sql);
                 }
             }
 
-            $sql = "DELETE FROM $this->table WHERE id = ${id}";
+            $sql = "DELETE FROM $this->table WHERE id = $id";
             $this->_query($sql);
         }
 
@@ -313,6 +327,8 @@
             return $html;
         }
 
+
+        //Lấy tên vai trò
         public function getPermissionName(){
             $data = [];
             $permissions = [];

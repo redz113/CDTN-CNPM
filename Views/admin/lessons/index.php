@@ -15,13 +15,22 @@
         </div>
     </div>
 
-    <!-- @if(Session::has('success'))
-        <div class="alert alert-success" role="alert">
-            {{ Session::get('success') }}
-        </div>
-    @endif -->
-
     <div class="card-body">
+        <form action="./?ctl=lessons" method="GET" class="d-flex justify-content-end mb-3">
+            <input type="hidden" name="ctl" id="" value="lessons">
+            <!-- Phan loai -->
+            <select class="badge text-uppercase mr-1" name="course">
+                <option value="0" selected>Phân loại</option>
+                <?php
+                    foreach($courses as $value){
+                        echo "<option value='" . $value['id'] . "'";
+                        if(isset($_REQUEST['course']) && $_REQUEST['course'] == $value['id']) echo "selected"; 
+                        echo ">" . $value['name'] . "</option>";
+                    }
+                ?>
+            </select>
+            <button class="btn btn-dark">Search</button>
+        </form>
         <div class="table-responsive">
              <table class="table table-bordered table-hover">
                 <tr class="badge-default">
@@ -36,7 +45,7 @@
 
                 <?php
                     if(isset($lessons)){
-                        $i = 1;
+                        $i = (isset($_GET['page'])) ? ($_GET['page'] - 1) * 5 + 1 : 1;
                         foreach($lessons as $value){
                 ?>
                 
@@ -44,7 +53,7 @@
                         <td class="align-middle"> <?php echo $i++; ?> </td>
                         <td class="align-middle"> <?php echo $value['name']; ?> </td>  
 						<!-- <td class="align-middle"> <?php echo $value['described']; ?> </td> -->
-                        <td class="align-middle text-uppercase"> <?php echo $value['courseId']; ?> </td> 
+                        <td class="align-middle text-uppercase"> <?php echo $value['coursesName']; ?> </td> 
                         <td class="align-middle"> <?php echo $value['created_at']; ?> </td> 
                         <td class="align-middle text-right">
                             <a href="./?ctl=lessons&act=show&id=<?php echo $value['id']; echo isset($_GET['page']) ? "&page=".$_GET['page']:""; ?>" class="btn btn-info mr-2 mt-2">Xem</a>
