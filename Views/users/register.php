@@ -33,13 +33,21 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <title>Registration</title>
 </head>
-<body>
-  <div class="container mt-5">
-    <div class="row">
-			<a href="./../../" class="btn btn-primary px-4">Trang chủ</a>
-		</div>
-    <div class="row justify-content-center mt-1">
-      <div class="col-md-4">
+<body style="background-color: #D9EEE1;">
+<div class="fixed-top">  
+  <!-- Navbar Start -->
+  <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-light py-3 py-lg-0 px-lg-2 px-xl-5">
+            <a href="./../../" class="navbar-brand ml-lg-3">
+                <h3 class="m-0 py-3 text-uppercase text-primary"><i class="fa fa-book-reader mr-3"></i>Edu90minute</h3>
+            </a>
+            <strong class="text-light h5 m-0">Đăng ký</strong>
+        </nav>
+    </div>
+</div>
+<div style="height: 60px;"></div>
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-4 bg-light rounded">
         <h2 class="text-center mb-4">Đăng ký</h2>
         <form method="post">
           <div class="form-group">

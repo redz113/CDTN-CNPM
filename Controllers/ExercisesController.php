@@ -55,6 +55,35 @@ class ExercisesController extends BaseController{
             $this->data['exercises'] = $this->exercisesModel->all('', '', [$where], '', '', ['relate' => 'asc']);
             $this->data['exerciseShow'] = $this->data['exercises']['0'];
         }
+
+        $this->data['comments'] = $this->exercisesModel->all('comments_exercise', ['*']);
+        $this->data['subComments'] = $this->exercisesModel->all('sub_comments_exercise', ['*']);
         return $this->view('exercises.show', $this->data);
+    }
+
+
+    public function comment(){
+        if(isset($_POST['content'])) {
+            $_POST['content'] = trim($_POST['content']);
+        }
+
+        if(!empty($_POST['content'])){
+            $this->exercisesModel->create_cmt('comments_exercise');
+        }
+
+        return $this->list();
+    }
+
+    public function subCmt(){
+        if(isset($_POST['subCmt'])) {
+            $_POST['content'] = trim($_POST['subCmt']);
+            unset($_POST['subCmt']);
+        }
+
+        if(!empty($_POST['content'])){
+            $this->exercisesModel->create_cmt('sub_comments_exercise');
+        }
+
+        return $this->list();
     }
 } 

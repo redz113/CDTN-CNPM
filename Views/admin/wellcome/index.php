@@ -105,7 +105,7 @@
 	<div class="row">
 		<?php
 			$i = 0;
-			while($i < 6){
+			while($i < 3){
 				if(isset($courses[$i])){
 		?>
 			<div class="col-xl-4 col-md-6 mb-3">

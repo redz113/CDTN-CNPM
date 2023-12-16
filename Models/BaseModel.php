@@ -21,7 +21,7 @@
             $this->connect = $this->connect(); 
         }
 
-        public function getDataJoin($selectTb2 = [], $tableJoin, $on = "", $where = [], $start=0, $limit = null, $orderBy = ['relate' => 'asc']) {
+        public function getDataJoin($selectTb2 = [], $tableJoin = '', $on = "", $where = [], $start=0, $limit = null, $orderBy = ['relate' => 'asc']) {
             foreach ($this->colums as $value) {
                 $colums[] = $this->table .'.'. $value;
             }
@@ -72,7 +72,7 @@
             }else $select = implode(',', $this->colums);
 
             $table = empty($table) ? $this->table : $table;
-            $sql = "SELECT ${select} FROM $table";
+            $sql = "SELECT {$select} FROM $table";
 
 
             if(!empty($where) ){
@@ -104,10 +104,14 @@
         /**
          * Lấy ra 1 bản ghi
          */
-        public function find_by_id($id){
-            $select = implode(',', $this->colums);
-
-            $sql = "SELECT ${select} FROM $this->table WHERE id = $id"; 
+        public function find_by_id($id, $table = '', $colums = []){
+            if(!empty($table)){
+                $this->table = $table;
+            }
+        
+            $select = !isset($colums[0]) ? implode(',', $this->colums) : implode(',', $colums);
+    
+            $sql = "SELECT {$select} FROM $this->table WHERE id = $id"; 
             return mysqli_fetch_assoc($this->_query($sql));
         }
 
@@ -146,27 +150,14 @@
         /**
          * Thêm dữ liệu vào bảng
          */
-        // public function create($table = ''){
+        public function create_cmt($table = ''){
            
-        //     $cols = implode(',', array_keys($_POST));
-        //     $values = '\'' . implode('\',\'', array_values($_POST)) . '\'';
+            $cols = implode(',', array_keys($_POST));
+            $values = '\'' . implode('\',\'', array_values($_POST)) . '\'';
 
-        //     if(empty($this->table)){ $this->table = $table; };
-        //     ////
-        //     if(isset($_FILES[$this->tagFileInput]) && $_FILES[$this->tagFileInput]['error'] == 0){
-        //         $path = $this->_uploadFile();
-        //         if($path != false){
-        //             $cols .= ',' . $this->tagFileInput;
-        //             $values .= ',\'' . $path . '\'';
-        //         }
-        //     }
-
-        //     $sql = "INSERT INTO $this->table($cols) VALUES($values)";
-            
-        //     if(empty($this->checkError)){
-        //         $this->_query($sql);
-        //     }
-        // }
+            $sql = "INSERT INTO $table($cols) VALUES($values)";
+            $this->_query($sql);
+        }
 
         /**
          * Sửa dữ liệu trong bảng

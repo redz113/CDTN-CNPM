@@ -60,4 +60,16 @@
     max-height: 192px;
 } */
 
+.avt{
+    width: 3rem !important;
+    border-radius: 50% !important;
+    border: 2px solid #282a35 !important;
+}
+
+.avt_subCmt{
+    width: 2.5rem !important;
+    border-radius: 50% !important;
+    border: 2px solid rgb(3, 255, 205) !important;
+}
+
 

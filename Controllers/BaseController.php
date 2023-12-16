@@ -27,12 +27,11 @@ class BaseController{
     public function interfaceConvert(){
         if(isset($_GET['ui'])){
             $_SESSION['ui'] = 1;
-            return $this->view('index');
         }
 
         if(isset($_GET['ai'])){
             unset($_SESSION['ui']);
-            return $this->view('admin.index');
         }
+        return header( "refresh:0.0;url=./" );
     }
 }

@@ -21,7 +21,7 @@
             <input type="hidden" name="ctl" id="" value="courses">
             <!-- Phan loai -->
             <select class="badge text-uppercase mr-1" name="topic">
-                <option value="0" selected>Phân loại</option>
+                <option value="0" selected>Chủ đề</option>
                 <?php
                     foreach($topics as $value){
                         echo "<option value='" . $value['id'] . "'";

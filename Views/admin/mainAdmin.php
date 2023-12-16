@@ -1,12 +1,6 @@
 
 <main class="pt-5">
 <?php 
-
-    // if(isset($_GET['ui'])){
-    //     $_SESSION['ui'] = 1;
-    // }
-
-
     if(isset($_GET['us'])){
         $link = "accounts/". $_GET['act'] . '.php';
         include_once($link);
@@ -25,10 +19,10 @@
     $actionName = $_REQUEST['act'] ?? 'index';
     
     // echo $controllerName;
-    if(isset($_SESSION['permissions']) && count($_SESSION['permissions']) > 0){    // Admin | QTND
+    if(isset($_SESSION['permissions']) && count($_SESSION['permissions']) > 0 && !isset($_SESSION['ui'])){    // Admin | QTND
         $controllerName = 'Admin' . $controllerName;
-        require_once "./Controllers/Admin/${controllerName}.php";
-    }else require_once "./Controllers/${controllerName}.php";
+        require_once "./Controllers/Admin/{$controllerName}.php";
+    }else require_once "./Controllers/{$controllerName}.php";
     $controllerObj = new $controllerName;
     $controllerObj->$actionName();
     }

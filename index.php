@@ -31,14 +31,13 @@
 </head>
 
 <body>
-    <?php
+    <?php   
+            date_default_timezone_set("Asia/Ho_Chi_Minh");
             session_start();
             require_once "./Controllers/BaseController.php";
             require_once "./Core/Database.php";
             require_once "./Models/BaseModel.php";
 
-            // $_SESSION['role'] = 2;           //  user - Admin 
-            // session_destroy();
             $role = [];
             if(isset($_SESSION['role'])) {
                 $model = new BaseModel();
@@ -46,17 +45,19 @@
             }
 
             if(isset($_SESSION['role']) && count($_SESSION['permissions']) > 0) {
-                require_once("Views/admin/index.php"); 
+                if(isset($_SESSION['ui'])){
+                    require_once("Views/index.php");
+                }else{
+                    require_once("Views/admin/index.php"); 
+                }
             }else{
-                include("Views/menu.php");
-                include("Views/main.php");
-                include("Views/footer.php");
+                require_once("Views/index.php");
             }
         ?>   
     
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <!-- <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a> -->
 
 
     <!-- JavaScript Libraries -->
@@ -76,9 +77,9 @@
 
     <!-- ckeditor JS-->
     <!-- <script src="./ckeditor/ckeditor.js"></script> -->
-    <script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+    <script src="./ckeditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace( 'content' );
+        // CKEDITOR.replace( 'content' );
     </script>
 </body>
 

@@ -36,41 +36,52 @@
 			<a href="./?us=users&act=index" class="btn btn-primary">Quay lại</a>
 		</div>
     <div class="row justify-content-center mt-5">
-      <div class="col-md-4">
+      <div class="col-md-8">
         <h2 class="text-center mb-4">Tạo tài khoản</h2>
         <form method="post">
-          <div class="form-group">
-            <label for="username">Tên đăng nhập</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
-          </div>
-          <div class="form-group">
-            <label for="password">Mật khẩu</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
-          </div>
-          <div class="form-group">
-            <label for="confirm-password">Xác nhận mật khẩu</label>
-            <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
-          </div>
-		  <div class="form-group">
-            <label for="name">Tên</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
-          </div>
-		  <div class="form-group">
-            <label for="email">Địa chỉ email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
-          </div>
-
-		<?php 
-			$roles = getAll('roles');
-			foreach ($roles as $role) {
-		?>
-			<div class="col-xs-12 col-sm-6">
-				<input type="radio" id="role-<?php echo $role['id'];?>" name="role" value="<?php echo $role['id']; ?>">
-				<label for="role-<?php echo $role['id'];?>"><?php echo $role['name']; ?></label>
+			<div class="row">
+				<div class="col-md-6 form-group">
+					<strong class="form-lable " for="name">Họ và tên</strong>
+					<input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+				</div>
+				<div class="col-md-6 form-group">
+					<strong class="form-lable " for="username">Tên đăng nhập</strong>
+					<input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
+				</div>
 			</div>
-		<?php
-			}
-		?>
+
+			<div class="row">
+				<div class="col-md-6 form-group">
+					<strong class="form-lable " for="password">Mật khẩu</strong>
+					<input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+				</div>
+
+				<div class="col-md-6 form-group">
+					<strong class="form-lable " for="confirm-password">Xác nhận mật khẩu</strong>
+					<input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
+				</div>
+			</div>
+          
+		  	
+			<div class="form-group">
+				<strong class="form-lable " for="email">Địa chỉ email</strong>
+				<input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+			</div>
+
+			<div class="row">
+				<div class="form-group col-auto">
+					<strong class="form-lable " for="role">Vai trò</strong>
+					<select name="role" class="form-control text-center" id="role">
+						<option value=" " selected>-------</option>
+						<?php
+							$roles = getAll('roles');
+							foreach($roles as $role){
+								echo "<option value=' " . $role['id'] . " '> " . $role['name'] . " </option>";
+							}
+						?>
+					</select>
+				</div>
+			</div>
 		  
           <div class="form-group text-center">
             <button type="submit" class="btn btn-primary" name="btn-register" id = "btn-register">Đăng ký</button>

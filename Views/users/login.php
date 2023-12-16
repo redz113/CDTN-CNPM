@@ -43,13 +43,22 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <title>Login</title>
 </head>
-<body>
+<body style="background-color: #D9EEE1;">
+<div class="fixed-top">  
+  <!-- Navbar Start -->
+  <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-light py-3 py-lg-0 px-lg-2 px-xl-5">
+            <a href="./../../" class="navbar-brand ml-lg-3">
+                <h3 class="m-0 py-3 text-uppercase text-primary"><i class="fa fa-book-reader mr-3"></i>Edu90minute</h3>
+            </a>
+            <strong class="text-light h5 m-0">Đăng nhập</strong>
+        </nav>
+    </div>
+</div>
+<div style="height: 60px;"></div>
 <div class="container mt-5">
-    <div class="row">
-			<a href="./../../" class="btn btn-primary px-4">Trang chủ</a>
-		</div>
     <div class="row justify-content-center mt-5">
-      <div class="col-md-4">
+      <div class="col-md-4 p-3 bg-light rounded">
         <h2 class="text-center mb-4">Đăng nhập</h2>
         <form method="post">
           <div class="form-group">
@@ -60,18 +69,18 @@
             <label for="password">Mật khẩu</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Password">
           </div>
-			<div class="form-group justify-content-between">
+			<div class="form-group d-flex justify-content-between">
             <div class="form-check text-right">
               <input type="checkbox" class="form-check-input" id="remember" name="remember">
               <label class="form-check-label" for="remember">Nhớ mật khẩu</label>
             </div>
+             <div class="ml-auto">
+              <a href="./forgot.php">Quên mật khẩu?</a>
+            </div>
           </div>
-          <div class="form-group d-flex justify-content-between">
+          <div class="form-group text-center">
             <div class="ml-auto">
               <button type="submit" class="btn btn-primary" name="btn-login" id="btn-login">Đăng nhập</button>
-            </div>
-            <div class="ml-auto">
-              <a href="./forgot.php">Quên mật khẩu?</a>
             </div>
           </div>
         </form>

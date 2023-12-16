@@ -1,7 +1,7 @@
 
 
 <!-- Header Start -->
-<div class="jumbotron jumbotron-fluid position-relative mb-0 pt-5">
+<div class="jumbotron jumbotron-fluid position-relative mb-0 pt-5 pr-0 mr-0">
     <div class="container text-center my-5 pt-5">
         <h1 class="text-white display-4 text-uppercase mt-4 mb-4">Học lập trình</h1>
         <h3 class="text-white display-5 text-uppercase mb-5">với Edu90minute</h3>

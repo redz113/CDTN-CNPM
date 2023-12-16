@@ -46,6 +46,34 @@ class LessonsController extends BaseController{
             $this->data['lessons'] = $this->lessonsModel->all('', '', [$where], '', '', ['relate' => 'asc']);
             $this->data['lessonShow'] = $this->data['lessons']['0'];
         }
+
+        $this->data['comments'] = $this->lessonsModel->all('comments_lesson', ['*']);
+        $this->data['subComments'] = $this->lessonsModel->all('sub_comments_lesson', ['*']);
         return $this->view('lessons.show', $this->data);
+    }
+
+    public function comment(){
+        if(isset($_POST['content'])) {
+            $_POST['content'] = trim($_POST['content']);
+        }
+
+        if(!empty($_POST['content'])){
+            $this->lessonsModel->create_cmt('comments_lesson');
+        }
+
+        return $this->index();
+    }
+
+    public function subCmt(){
+        if(isset($_POST['subCmt'])) {
+            $_POST['content'] = trim($_POST['subCmt']);
+            unset($_POST['subCmt']);
+        }
+
+        if(!empty($_POST['content'])){
+            $this->lessonsModel->create_cmt('sub_comments_lesson');
+        }
+
+        return $this->index();
     }
 }

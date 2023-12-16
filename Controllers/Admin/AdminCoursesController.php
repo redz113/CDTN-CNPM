@@ -37,7 +37,7 @@
 
             if(isset($_REQUEST['tags']) && $_REQUEST['tags'] != '0'){
                 $param[] = "tags=" .$_REQUEST['tags'];
-                $where[] = "tags LIKE '%" .$_REQUEST['tags'] . "%'";  
+                $where[] = "tags LIKE '%" .$_REQUEST['tags'] . " %'";  
             }
             
             // $this->coursesModel->paging();

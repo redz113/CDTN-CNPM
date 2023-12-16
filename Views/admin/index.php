@@ -20,7 +20,7 @@
                     ?>
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <!-- <li><a class="text-nav dropdown-item py-2" href="./?ui=1">Giao diện người dùng</a></li> -->
+                    <li><a class="text-nav dropdown-item py-2" href="./?ctl=base&act=interfaceConvert&ui=1">Giao diện người dùng</a></li>
                     <li><a class="text-nav dropdown-item py-2" href="">Thông tin cá nhân</a></li>
                     <li><a class="text-nav dropdown-item py-2" href="./?act=resetpassword&us=1">Đổi mật khẩu</a></li>
                     <li><a class="text-nav dropdown-item py-2" href="./logout.php">Đăng xuất</a></li>
