@@ -1,6 +1,6 @@
 <?php 
 	include_once "function.php";
-	$user = $_SESSION['id'];
+	$user = $_GET['id'];
 	$otp = "";
 	$new_password = "";
 	$confirm_password = "";

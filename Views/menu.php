@@ -29,8 +29,8 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <!-- <li><a class="text-nav dropdown-item py-2" href="./?ctl=base&act=interfaceConvert&ai=1">Giao diện trang quản trị</a></li> -->
                             
-                            <li><a class="text-nav dropdown-item py-2" href="">Thông tin cá nhân</a></li>
-                            <li><a class="text-nav dropdown-item py-2" href="Views/users/resetpassword.php">Đổi mật khẩu</a></li>
+                            <li><a class="text-nav dropdown-item py-2" href="Views/users/userinfo.php">Thông tin cá nhân</a></li>
+                            <li><a class="text-nav dropdown-item py-2" href="Views/users/changepass.php">Đổi mật khẩu</a></li>
                             <li><a class="text-nav dropdown-item py-2" href="./logout.php">Đăng xuất</a></li>
                     </ul>
                     </div>

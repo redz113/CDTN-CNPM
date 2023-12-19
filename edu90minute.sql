@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2023 at 06:54 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.3.33
+-- Generation Time: Dec 19, 2023 at 06:39 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,7 @@ CREATE TABLE `code_confirm` (
   `code` varchar(6) NOT NULL,
   `md5` varchar(255) NOT NULL,
   `create_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -42,15 +42,15 @@ CREATE TABLE `code_confirm` (
 
 CREATE TABLE `courses` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `described` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fileUpload` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `described` varchar(255) NOT NULL,
+  `fileUpload` varchar(255) NOT NULL,
   `price` int(11) NOT NULL DEFAULT 0,
-  `inputs` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `outputs` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `inputs` text NOT NULL,
+  `outputs` text NOT NULL,
   `interact` int(11) NOT NULL DEFAULT 0,
   `relate` float NOT NULL,
-  `tags` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tags` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `state` smallint(6) NOT NULL DEFAULT 0,
   `topicId` int(10) UNSIGNED NOT NULL
@@ -61,7 +61,7 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `name`, `described`, `fileUpload`, `price`, `inputs`, `outputs`, `interact`, `relate`, `tags`, `created_at`, `state`, `topicId`) VALUES
-(1, 'HTML', 'Ngôn ngữ xây dựng trang web', './uploads/images/90468b6353a04463410c3466396dd2b2.jpg', 0, 'Không', '', 14943, 3.58399, 'html frontend ', '2023-10-10 03:06:38', 1, 1),
+(1, 'HTML', 'Ngôn ngữ xây dựng trang web', './uploads/images/90468b6353a04463410c3466396dd2b2.jpg', 0, 'Không', '', 14945, 3.58399, 'html frontend ', '2023-10-10 03:06:38', 1, 1),
 (2, 'CSS', 'Ngôn ngữ tạo kiểu cho trang web', './uploads/images/7fd6c909d30bf371c1de4a3a56f89dea.webp', 0, 'Không', '', 4917, 4.9375, 'css frontend ', '2023-10-10 03:06:38', 1, 1),
 (3, 'JavaScript', 'Ngôn ngữ lập trình trang web', './uploads/images/7f3729579680a3ba3940b1b2744f44e1.webp', 0, '- Thành thạo HTML|CSS|JAVASCRIPT\r\n- OOP', '- Xây dựng được 1 website chuẩn PHP theo mô hình MVC', 742, 5.21875, 'javascript frontend ', '2023-10-10 03:06:38', 1, 1),
 (4, 'SQL', 'Ngôn ngữ truy cập cơ sở dữ liệu', './uploads/images/59342e6382ef64520fd3fb8704d98b2e.png', 0, 'Khong', '', 1746, 50.25, 'backend sql ', '2023-10-10 03:06:38', 1, 1),
@@ -77,11 +77,11 @@ INSERT INTO `courses` (`id`, `name`, `described`, `fileUpload`, `price`, `inputs
 
 CREATE TABLE `exercises` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `described` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `described` varchar(255) NOT NULL,
   `level` smallint(6) NOT NULL,
   `courseId` int(10) UNSIGNED NOT NULL,
-  `fileUpload` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fileUpload` varchar(255) NOT NULL,
   `relate` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -112,9 +112,9 @@ INSERT INTO `exercises` (`id`, `name`, `described`, `level`, `courseId`, `fileUp
 
 CREATE TABLE `lessons` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `described` text COLLATE utf8_unicode_ci NOT NULL,
-  `fileUpload` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `described` text NOT NULL,
+  `fileUpload` varchar(255) NOT NULL,
   `courseId` int(10) UNSIGNED NOT NULL,
   `relate` float NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -161,7 +161,7 @@ INSERT INTO `lessons` (`id`, `name`, `described`, `fileUpload`, `courseId`, `rel
 
 CREATE TABLE `permissions` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -198,7 +198,7 @@ INSERT INTO `permissions` (`id`, `name`) VALUES
 
 CREATE TABLE `roles` (
   `id` int(10) NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -276,7 +276,7 @@ INSERT INTO `role_has_permission` (`permissionId`, `roleId`) VALUES
 
 CREATE TABLE `tags` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+  `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -301,7 +301,7 @@ INSERT INTO `tags` (`id`, `name`) VALUES
 
 CREATE TABLE `topics` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
   `status` smallint(6) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -325,10 +325,11 @@ INSERT INTO `topics` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password_change_at` timestamp NULL DEFAULT NULL,
   `role` int(10) NOT NULL,
@@ -340,12 +341,12 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `email_verified_at`, `password_change_at`, `role`, `created_at`, `updated_at`) VALUES
-(2, 'Nguyễn Xuân Quý', 'admin', '123456', 'quyhoa321@gmail.com', '2023-11-07 07:40:54', NULL, 1, NULL, NULL),
-(3, 'Quản trị nội dung', 'qtnd', '123456', 'adb2k2@gmail.com', '2023-11-06 15:24:39', NULL, 2, NULL, NULL),
-(4, 'Hoàng Văn Quỳnh', 'khach', '123456', 'quynhdzai102@gmail.com', '2023-11-06 15:31:28', NULL, 3, NULL, NULL),
-(11, 'Nguyen Thanh Quang', 'thanhquangdeptrai', '12345678', 'quangteo18062002@gmail.com', '2023-11-22 00:58:25', NULL, 5, NULL, NULL),
-(12, 'Nguyễn Tiến Ngọc', '705105001', '123456', 'us01@gmail.com', '2023-11-28 07:13:16', NULL, 3, NULL, NULL);
+INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `birthday`, `email_verified_at`, `password_change_at`, `role`, `created_at`, `updated_at`) VALUES
+(2, 'Nguyễn Xuân Quý', 'admin', '123456', 'quyhoa321@gmail.com', '0000-00-00', '2023-11-07 07:40:54', NULL, 1, NULL, NULL),
+(3, 'Quản trị nội dung', 'qtnd', '123456', 'adb2k2@gmail.com', '0000-00-00', '2023-11-06 15:24:39', NULL, 2, NULL, NULL),
+(4, 'Hoàng Văn Quỳnh', 'khach', '123456', 'adsdadssdad@gmail.com', '2023-12-21', '2023-11-06 15:31:28', NULL, 3, NULL, '2023-12-19 17:35:17'),
+(11, 'Nguyen Thanh Quang', 'thanhquangdeptrai', '12345678', 'quangteo18062002@gmail.com', '0000-00-00', '2023-11-22 00:58:25', NULL, 5, NULL, NULL),
+(12, 'Nguyễn Tiến Ngọc', '705105001', '123456', 'us01@gmail.com', '0000-00-00', '2023-11-28 07:13:16', NULL, 3, NULL, NULL);
 
 --
 -- Indexes for dumped tables

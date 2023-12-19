@@ -320,4 +320,47 @@
 	// 	}
 	// 	return $code;
 	// }
+
+	function updatePassword($user, $new_password){
+		GLOBAL $conn;
+		$filter_user = mysqli_real_escape_string($conn, $user);
+		$filter_password = mysqli_real_escape_string($conn, $new_password);
+		$sql = "UPDATE users SET password = '$filter_password', updated_at = NOW() WHERE id = '$filter_user'";
+		$query = mysqli_query($conn, $sql);
+		if($query){
+			return true;
+		} else{
+			return false;
+		}
+	}
+
+	function getUserInfo($user){
+		GLOBAL $conn;
+		$filter_user = mysqli_real_escape_string($conn, $user);
+		$data = array();
+		$sql = "SELECT * FROM users WHERE id = '$filter_user'";
+		$query = mysqli_query($conn, $sql);
+		if(mysqli_num_rows($query) > 0){
+			while ($row = mysqli_fetch_assoc($query)) {
+				array_push($data, $row);
+			}
+		}
+		return $data;
+	}
+	
+	function UpdateInfor($id, $name, $email, $ngaysinh){
+		GLOBAL $conn;
+		$filter_id = mysqli_real_escape_string($conn, $id);
+		$filter_name = mysqli_real_escape_string($conn, $name);
+		$filter_email = mysqli_real_escape_string($conn, $email);
+		$filter_ngaysinh = mysqli_real_escape_string($conn, $ngaysinh);
+		echo 		$filter_ngaysinh;
+		$sql = "UPDATE users SET name = '$filter_name', email = '$filter_email', birthday = '$filter_ngaysinh', updated_at = NOW() WHERE id = '$filter_id'";
+		$query = mysqli_query($conn, $sql);
+		if($query){
+			return true;
+		} else{
+			return false;
+		}
+	}
 ?>
