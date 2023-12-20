@@ -4,12 +4,15 @@
 	$userInfo = getUserInfo($user);
     $edit_enable = "";
     $warning  = "";
+    $success = false;
     if(isset($_POST['btn-save'])){
         $name = trim($_POST['fullname']);
         $email = trim($_POST['email']);
         $ngaysinh = trim($_POST['birthdate']);
         if(UpdateInfor($_SESSION['id'], $name, $email, $ngaysinh)){
             $warning  = "Thay đổi thông tin cá nhân thành công.";
+            $success = true;
+            $_SESSION['name'] = $name;
         }
         else{
             $warning  = "Thay đổi thông tin cá nhân không thành công.";
@@ -78,6 +81,10 @@ h2 {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <?php 
     include_once "../footer.php";
+    if($success){
+        $success = false;
+        echo '<script>setTimeout(function(){ location.reload(); }, 3000);</script>';
+    }
 ?>
 
 <script>

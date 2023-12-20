@@ -5,6 +5,7 @@
 	$new_password = "";
 	$confirm_password = "";
 	$warning = "";
+    $success = false;
 	if(isset($_POST['btn-submit'])){
 		$old_password = trim($_POST['old-password']);
 		$new_password = trim($_POST['new-password']);
@@ -17,7 +18,8 @@
 			else{
 				if($new_password==$confirm_password){
 					updatePassword($user, $new_password);
-					$warning = "Đổi mật khẩu thành công. Nhấn vào <a href='./login.php'>đây để đăng nhập</a>";
+                    $success = true;
+					$warning = "Đổi mật khẩu thành công. Vui lòng đăng nhập lại.";
 				} else {
 					$warning = "Mật khẩu mới không khớp, vui lòng thử lại";
 				}
@@ -91,4 +93,10 @@ h2 {
 
 <?php 
     include_once "../footer.php";
+?>
+<?php 
+    if($success){
+        $success = false;
+        echo '<script>setTimeout(function(){ window.location.href = "../../logout.php"; }, 3000);</script>';
+    }
 ?>
